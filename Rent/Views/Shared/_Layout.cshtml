@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model BLL.ViewModel.LoginViewModel
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -24,6 +26,21 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>
+                            @Html.ActionLink("Привіт " + User.Identity.Name,
+                           "Manage", "Account")
+                    </li>
+                        <li>@Html.ActionLink("Вихід", "Logout", "Account")</li>
+                    }
+                    else
+                    {
+                        <li><a data-toggle="modal" data-target="#loginModal" href="#">Login</a></li>
+                        <li><a data-toggle="modal" data-target="#registerModal" href="#">Register</a></li>
+                    }
+                </ul>
             </div>
         </div>
     </div>
@@ -35,8 +52,14 @@
         </footer>
     </div>
 
+    @Html.Partial("_LoginPopup")
+    @Html.Partial("_RegisterPopup")
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Account/Account.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

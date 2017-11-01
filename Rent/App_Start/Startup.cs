@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Facebook;
+using Microsoft.Owin.Security.Google;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -65,23 +66,33 @@ namespace Rent.App_Start
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            var facebookOptions = new FacebookAuthenticationOptions
+            //var facebookOptions = new FacebookAuthenticationOptions
+            //{
+            //    AppId = "350879062040009",
+            //    AppSecret = "f1105a9743238e20671f63d37b373298"
+            //};
+
+            //facebookOptions.Scope.Add("email");
+
+            //facebookOptions.Fields.Add("name");
+            //facebookOptions.Fields.Add("email");
+
+            //app.UseFacebookAuthentication(facebookOptions);
+
+            var googleOptions = new GoogleOAuth2AuthenticationOptions
             {
-                AppId = "350879062040009",
-                AppSecret = "f1105a9743238e20671f63d37b373298"
+                ClientId = "267725092279-4978t08p88snbdh96jlsutb7jgop564g.apps.googleusercontent.com",
+                ClientSecret = "QqPMt4Z7ARZrXCJdFVod0g-e",
             };
 
-            facebookOptions.Scope.Add("email");
+            googleOptions.Scope.Add("email");
 
-            facebookOptions.Fields.Add("name");
-            facebookOptions.Fields.Add("email");
-
-            app.UseFacebookAuthentication(facebookOptions);
+            app.UseGoogleAuthentication(googleOptions);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
-            //    ClientId = "",
-            //    ClientSecret = ""
+            //    ClientId = "267725092279-4978t08p88snbdh96jlsutb7jgop564g.apps.googleusercontent.com",
+            //    ClientSecret = "QqPMt4Z7ARZrXCJdFVod0g-e"
             //});
 
             builder.RegisterControllers(typeof(MvcApplication).Assembly);

@@ -88,9 +88,8 @@ namespace Rent.Controllers
             }
             else
             {
-                ViewBag.ReturnUrl = returnUrl;
-                ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                accountService.CreateLogin(loginInfo.Email);
+                return RedirectToAction("Index", "Home");
             }
         }
 

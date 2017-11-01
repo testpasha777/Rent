@@ -19,7 +19,7 @@ namespace BLL.Infrastructure.Identity
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 Provider = new CookieAuthenticationProvider
                 {
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserService, AppUser>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, AppUser>(
                         validateInterval: TimeSpan.FromMinutes(365),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }

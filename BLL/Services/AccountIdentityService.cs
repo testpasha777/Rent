@@ -17,15 +17,15 @@ namespace BLL.Services
 {
     public class AccountIdentityService : IAccountService
     {
-        private SignInService signInManager;
-        private UserService userManager;
+        private ApplicationSignInManager signInManager;
+        private ApplicationUserManager userManager;
         private IAuthenticationManager authenticationManager;
 
-        public AccountIdentityService()
+        public AccountIdentityService(ApplicationUserManager _userManager, ApplicationSignInManager _signInManager, IAuthenticationManager _authManager)
         {
-            signInManager = HttpContext.Current.GetOwinContext().Get<SignInService>();
-            userManager = HttpContext.Current.GetOwinContext().Get<UserService>();
-            authenticationManager = HttpContext.Current.GetOwinContext().Authentication;
+            signInManager = _signInManager;
+            userManager = _userManager;
+            authenticationManager = _authManager;
         }
 
         public StatusAccountViewModel CreateLogin(string email)

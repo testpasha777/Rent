@@ -1,27 +1,45 @@
-﻿using BLL.Infrastructure.Identity;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using BLL.Infrastructure.Identity;
+using BLL.Infrastructure.IdentityConfig;
+using BLL.Interface;
+using BLL.Services;
 using DAL.Entities;
+using DAL.Entities.Identity;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Facebook;
 using Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
 
-[assembly: OwinStartup(typeof(BLL.Services.Startup))]
+[assembly: OwinStartup(typeof(Rent.App_Start.Startup))]
 
-namespace BLL.Services
+namespace Rent.App_Start
 {
     public class Startup
     {
+
         public void Configuration(IAppBuilder app)
         {
-            app.CreatePerOwinContext<EFContext>(EFContext.Create);
-            app.CreatePerOwinContext<UserService>(UserService.Create);
-            app.CreatePerOwinContext<RoleService>(RoleService.Create);
-            app.CreatePerOwinContext<SignInService>(SignInService.Create);
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<EFContext>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationUserStore>().As<IUserStore<AppUser>>().InstancePerRequest();
+            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
+            builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
+            builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
+            builder.RegisterType<AccountIdentityService>().As<IAccountService>().InstancePerRequest();
+            //app.CreatePerOwinContext<EFContext>(EFContext.Create);
+            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            //app.CreatePerOwinContext<RoleService>(RoleService.Create);
+            //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -64,6 +82,15 @@ namespace BLL.Services
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+
+            var container = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            app.UseAutofacMiddleware(container);
+            app.UseAutofacMvc();
         }
     }
 }

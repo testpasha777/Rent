@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Owin;
+using Rent.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

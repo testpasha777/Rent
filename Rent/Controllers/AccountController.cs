@@ -15,7 +15,12 @@ namespace Rent.Controllers
 {
     public class AccountController : Controller
     {
-        private IAccountService accountService = new AccountIdentityService();
+        private IAccountService accountService;
+
+        public AccountController(IAccountService _accountService)
+        {
+            accountService = _accountService;
+        }
 
         public ActionResult Logout()
         {

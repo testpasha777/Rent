@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 
 namespace BLL.Infrastructure.Identity
 {
-    public class RoleService : RoleManager<AppRole>
+    public class ApplicationRoleManager : RoleManager<AppRole>
     {
-        public RoleService(RoleStore<AppRole> store) : base(store) { }
+        public ApplicationRoleManager(RoleStore<AppRole> store) : base(store) { }
 
-        public static RoleService Create(IdentityFactoryOptions<RoleService> options, IOwinContext context)
+        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            return new RoleService(new RoleStore<AppRole>(context.Get<EFContext>()));
+            return new ApplicationRoleManager(new RoleStore<AppRole>(context.Get<EFContext>()));
         }
     }
 }

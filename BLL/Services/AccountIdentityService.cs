@@ -93,6 +93,7 @@ namespace BLL.Services
 
             if(result.Succeeded)
             {
+                userManager.AddToRole(user.Id, "User");
                 return StatusAccountViewModel.Success;
             }
 

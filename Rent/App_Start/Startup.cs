@@ -7,6 +7,7 @@ using BLL.Services;
 using DAL.Entities;
 using DAL.Entities.Identity;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
@@ -91,6 +92,28 @@ namespace Rent.App_Start
 
             app.UseAutofacMiddleware(container);
             app.UseAutofacMvc();
+            CreateRole();
         }
+
+        public void CreateRole()
+        {
+            var db = new EFContext();
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+
+            if(!roleManager.RoleExists("Admin"))
+            {
+                var role = new IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+            }
+
+            if(!roleManager.RoleExists("User"))
+            {
+                var role = new IdentityRole();
+                role.Name = "User";
+                roleManager.Create(role);
+            }
+        }
+
     }
 }

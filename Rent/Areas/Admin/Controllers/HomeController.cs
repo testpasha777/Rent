@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rent.FiltersApp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ namespace Rent.Areas.Admin.Controllers
     public class HomeController : Controller
     {
         // GET: Admin/Home
+        [AdminAuthorize()]
         public ActionResult Index()
         {
             return View();

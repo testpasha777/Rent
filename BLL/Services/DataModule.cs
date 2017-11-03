@@ -1,10 +1,12 @@
 ﻿using Autofac;
+using Autofac.Core;
 using BLL.Infrastructure.Identity;
 using BLL.Infrastructure.IdentityConfig;
 using BLL.Interface;
 using DAL.Entities;
 using DAL.Entities.Identity;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
@@ -34,6 +36,7 @@ namespace BLL.Services
             builder.RegisterType<ApplicationUserStore>().As<IUserStore<AppUser>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
+            builder.RegisterType<ApplicationRoleStore>().As<IRoleStore<IdentityRole, string>>().InstancePerRequest();
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();

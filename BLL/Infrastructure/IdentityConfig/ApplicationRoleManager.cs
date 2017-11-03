@@ -12,13 +12,8 @@ using System.Threading.Tasks;
 
 namespace BLL.Infrastructure.Identity
 {
-    public class ApplicationRoleManager : RoleManager<AppRole>
+    public class ApplicationRoleManager : RoleManager<IdentityRole>
     {
-        public ApplicationRoleManager(RoleStore<AppRole> store) : base(store) { }
-
-        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
-        {
-            return new ApplicationRoleManager(new RoleStore<AppRole>(context.Get<EFContext>()));
-        }
+        public ApplicationRoleManager(IRoleStore<IdentityRole, string> store) : base(store) { }
     }
 }

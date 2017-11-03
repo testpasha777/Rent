@@ -1,16 +1,9 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using BLL.Infrastructure.Identity;
-using BLL.Infrastructure.IdentityConfig;
-using BLL.Interface;
 using BLL.Services;
-using DAL.Entities;
-using DAL.Entities.Identity;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Owin;
@@ -31,17 +24,7 @@ namespace Rent.App_Start
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<EFContext>().AsSelf().InstancePerRequest();
-            builder.RegisterType<ApplicationUserStore>().As<IUserStore<AppUser>>().InstancePerRequest();
-            builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
-            builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();
-            builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
-            builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
-            builder.RegisterType<AccountIdentityService>().As<IAccountService>().InstancePerRequest();
-            //app.CreatePerOwinContext<EFContext>(EFContext.Create);
-            //app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            //app.CreatePerOwinContext<RoleService>(RoleService.Create);
-            //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            builder.RegisterModule(new DataModule("RentConnection", app));
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -103,28 +86,27 @@ namespace Rent.App_Start
 
             app.UseAutofacMiddleware(container);
             app.UseAutofacMvc();
-            CreateRole();
         }
 
-        public void CreateRole()
-        {
-            var db = new EFContext();
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+        //public void CreateRole()
+        //{
+        //    var db = new EFContext();
+        //    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
 
-            if(!roleManager.RoleExists("Admin"))
-            {
-                var role = new IdentityRole();
-                role.Name = "Admin";
-                roleManager.Create(role);
-            }
+        //    if(!roleManager.RoleExists("Admin"))
+        //    {
+        //        var role = new IdentityRole();
+        //        role.Name = "Admin";
+        //        roleManager.Create(role);
+        //    }
 
-            if(!roleManager.RoleExists("User"))
-            {
-                var role = new IdentityRole();
-                role.Name = "User";
-                roleManager.Create(role);
-            }
-        }
+        //    if(!roleManager.RoleExists("User"))
+        //    {
+        //        var role = new IdentityRole();
+        //        role.Name = "User";
+        //        roleManager.Create(role);
+        //    }
+        //}
 
     }
 }

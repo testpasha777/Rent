@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DAL.Entities.Entities;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,9 @@ namespace DAL.Entities.Identity
 {
     public class AppUser : IdentityUser
     {
+
+        public virtual UserProfile UserProfile { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<AppUser> manager)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);

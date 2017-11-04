@@ -77,26 +77,34 @@
   <ItemGroup>
     <Compile Include="Entities\DBInitializer.cs" />
     <Compile Include="Entities\EFContext.cs" />
+    <Compile Include="Entities\Entities\UserProfile.cs" />
     <Compile Include="Entities\Identity\AppRole.cs" />
     <Compile Include="Entities\Identity\AppUser.cs" />
     <Compile Include="Interface\IEFContext.cs" />
+    <Compile Include="Interface\IUserProfileRepository.cs" />
     <Compile Include="Migrations\201710291108203_create db with identity.cs" />
     <Compile Include="Migrations\201710291108203_create db with identity.Designer.cs">
       <DependentUpon>201710291108203_create db with identity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711041046545_Create UserProfile 1-1 AppUser.cs" />
+    <Compile Include="Migrations\201711041046545_Create UserProfile 1-1 AppUser.Designer.cs">
+      <DependentUpon>201711041046545_Create UserProfile 1-1 AppUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\UserProfileRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710291108203_create db with identity.resx">
       <DependentUpon>201710291108203_create db with identity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711041046545_Create UserProfile 1-1 AppUser.resx">
+      <DependentUpon>201711041046545_Create UserProfile 1-1 AppUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

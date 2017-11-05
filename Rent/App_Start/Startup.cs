@@ -9,7 +9,10 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -62,15 +65,17 @@ namespace Rent.App_Start
 
             //app.UseFacebookAuthentication(facebookOptions);
 
-            var googleOptions = new GoogleOAuth2AuthenticationOptions
-            {
-                ClientId = "267725092279-4978t08p88snbdh96jlsutb7jgop564g.apps.googleusercontent.com",
-                ClientSecret = "QqPMt4Z7ARZrXCJdFVod0g-e",
-            };
+            //var googleOptions = new GoogleOAuth2AuthenticationOptions
+            //{
+            //    ClientId = "267725092279-4978t08p88snbdh96jlsutb7jgop564g.apps.googleusercontent.com",
+            //    ClientSecret = "QqPMt4Z7ARZrXCJdFVod0g-e",
+            //};
 
-            googleOptions.Scope.Add("email");
+            //googleOptions.Scope.Add("profile");
+            //googleOptions.Scope.Add("email");
+            //googleOptions.Scope.Add("https://www.googleapis.com/auth/plus.login");
 
-            app.UseGoogleAuthentication(googleOptions);
+            //app.UseGoogleAuthentication(googleOptions);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
@@ -87,26 +92,5 @@ namespace Rent.App_Start
             app.UseAutofacMiddleware(container);
             app.UseAutofacMvc();
         }
-
-        //public void CreateRole()
-        //{
-        //    var db = new EFContext();
-        //    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
-
-        //    if(!roleManager.RoleExists("Admin"))
-        //    {
-        //        var role = new IdentityRole();
-        //        role.Name = "Admin";
-        //        roleManager.Create(role);
-        //    }
-
-        //    if(!roleManager.RoleExists("User"))
-        //    {
-        //        var role = new IdentityRole();
-        //        role.Name = "User";
-        //        roleManager.Create(role);
-        //    }
-        //}
-
     }
 }

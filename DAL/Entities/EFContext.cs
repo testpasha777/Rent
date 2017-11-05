@@ -1,4 +1,5 @@
-﻿using DAL.Entities.Identity;
+﻿using DAL.Entities.Entities;
+using DAL.Entities.Identity;
 using DAL.Interface;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -27,5 +28,7 @@ namespace DAL.Entities
         {
             return base.Set<TEntity>();
         }
+
+        public DbSet<UserProfile> UserProfiles { get; set; }
     }
 }

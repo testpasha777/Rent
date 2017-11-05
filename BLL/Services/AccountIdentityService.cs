@@ -14,6 +14,7 @@ using DAL.Entities.Identity;
 using Microsoft.AspNet.Identity;
 using DAL.Interface;
 using DAL.Repositories;
+using DAL.Entities.Entities;
 
 namespace BLL.Services
 {
@@ -101,6 +102,14 @@ namespace BLL.Services
 
             if(result.Succeeded)
             {
+                UserProfile userProfile = new UserProfile();
+                //userProfile.AvatarPath
+                userProfile.Name = register.Name;
+                userProfile.SurName = register.SurName;
+                userProfile.Id = user.Id;
+
+                userProfileRepository.Create(userProfile);
+                userProfileRepository.SaveChange();
                 userManager.AddToRole(user.Id, "User");
 
                 return StatusAccountViewModel.Success;

@@ -23,9 +23,6 @@ namespace DAL.Entities.Entities
 
         public string AvatarPath { get; set; }
 
-        [Required]
-        public DateTime BirthDay { get; set; }
-
         public virtual AppUser AppUser { get; set; }
 
     }

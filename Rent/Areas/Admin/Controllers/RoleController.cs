@@ -12,9 +12,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using BLL.Infrastructure.Identity;
 using DAL.Entities.Identity;
+using Rent.FiltersApp;
 
 namespace Rent.Areas.Admin.Controllers
 {
+    [AdminAuthorize()]
     public class RoleController : Controller
     {
         private ApplicationRoleManager roleMnager;

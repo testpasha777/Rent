@@ -1,6 +1,7 @@
 ﻿using BLL.Interface;
 using BLL.Services;
 using BLL.ViewModel;
+using DAL.Entities.Entities;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
@@ -53,7 +54,7 @@ namespace Rent.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel register, HttpPostedFileBase file)
+        public ActionResult Register(RegisterViewModel register)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +66,7 @@ namespace Rent.Controllers
                     {
                         Email = register.Email,
                         Password = register.Password,
-                        IsRememberme = true,
+                        IsRememberme = false,
                     };
 
                     accountService.Login(login);

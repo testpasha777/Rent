@@ -49,10 +49,6 @@ namespace BLL.ViewModel
         [Display(Name = "SurName")]
         public string SurName { get; set; }
 
-        [Required]
-        [Display(Name = "Birth day")]
-        public DateTime BirthDay { get; set; }
-
         public HttpPostedFileBase avatar { get; set; }
 
         [Required]

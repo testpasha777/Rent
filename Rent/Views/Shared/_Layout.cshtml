@@ -1,6 +1,4 @@
-﻿@model BLL.ViewModel.LoginViewModel
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Style.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -29,10 +28,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Request.IsAuthenticated)
                     {
-                        <li>
-                            @Html.ActionLink("Привіт " + User.Identity.Name,
-                           "Manage", "Account")
-                    </li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Admin panel", "Index", "Admin/Home")</li>
+                        }
+                        
+                        <li><img class="avatar-img" src="~/Images/Worker/Avatar.jpg"/></li>
+                        @*<li>
+                            @Html.ActionLink("Привіт " + User.Identity.Name, "Manage", "Account")
+                        </li>*@
                         <li>@Html.ActionLink("Вихід", "Logout", "Account")</li>
                     }
                     else

@@ -7,10 +7,10 @@ using System.Web.Mvc;
 
 namespace Rent.Areas.Admin.Controllers
 {
+    [AdminAuthorize()]
     public class HomeController : Controller
     {
         // GET: Admin/Home
-        [AdminAuthorize()]
         public ActionResult Index()
         {
             return View();

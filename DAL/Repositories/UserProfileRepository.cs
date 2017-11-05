@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL.Entities.Entities;
+using DAL.Entities;
 
 namespace DAL.Repositories
 {
-    class UserProfileRepository : IUserProfileRepository
+    public class UserProfileRepository : IUserProfileRepository
     {
-        private IEFContext db;
+        private EFContext db;
 
-        public UserProfileRepository(IEFContext _db)
+        public UserProfileRepository(EFContext _db)
         {
             db = _db;
         }

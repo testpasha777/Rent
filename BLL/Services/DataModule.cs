@@ -5,6 +5,8 @@ using BLL.Infrastructure.IdentityConfig;
 using BLL.Interface;
 using DAL.Entities;
 using DAL.Entities.Identity;
+using DAL.Interface;
+using DAL.Repositories;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -40,6 +42,11 @@ namespace BLL.Services
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
+
+            //Repository
+            builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>().InstancePerRequest();
+
+            //Services
             builder.RegisterType<AccountIdentityService>().As<IAccountService>().InstancePerRequest();
 
             base.Load(builder);

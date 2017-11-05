@@ -23,11 +23,6 @@ namespace DAL.Entities
             Database.SetInitializer<EFContext>(new DBInitializer());
         }
 
-        public static EFContext Create()
-        {
-            return new EFContext();
-        }
-
         public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();

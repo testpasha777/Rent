@@ -12,6 +12,8 @@ using System.Net;
 using Microsoft.Owin.Security;
 using DAL.Entities.Identity;
 using Microsoft.AspNet.Identity;
+using DAL.Interface;
+using DAL.Repositories;
 
 namespace BLL.Services
 {
@@ -20,12 +22,17 @@ namespace BLL.Services
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
         private IAuthenticationManager authenticationManager;
+        private IUserProfileRepository userProfileRepository;
 
-        public AccountIdentityService(ApplicationUserManager _userManager, ApplicationSignInManager _signInManager, IAuthenticationManager _authManager)
+        public AccountIdentityService(ApplicationUserManager _userManager,
+            ApplicationSignInManager _signInManager,
+            IAuthenticationManager _authManager,
+            IUserProfileRepository _userProfile)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             authenticationManager = _authManager;
+            userProfileRepository = _userProfile;
         }
 
         public StatusAccountViewModel CreateLogin(string email)
@@ -90,10 +97,12 @@ namespace BLL.Services
             };
 
             var result = userManager.Create(user, register.Password);
+            
 
             if(result.Succeeded)
             {
                 userManager.AddToRole(user.Id, "User");
+
                 return StatusAccountViewModel.Success;
             }
 

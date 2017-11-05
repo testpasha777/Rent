@@ -22,6 +22,70 @@ namespace Rent.Controllers
             accountService = _accountService;
         }
 
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginViewModel login)
+        {
+            if (ModelState.IsValid)
+            {
+                var status = accountService.Login(login);
+
+                if (status == StatusAccountViewModel.Success)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return View(login);
+        }
+
+        [HttpGet]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterViewModel register, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                var status = accountService.Register(register);
+
+                if (status == StatusAccountViewModel.Success)
+                {
+                    LoginViewModel login = new LoginViewModel
+                    {
+                        Email = register.Email,
+                        Password = register.Password,
+                        IsRememberme = true,
+                    };
+
+                    accountService.Login(login);
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (status == StatusAccountViewModel.Dublication)
+                {
+                    ModelState.AddModelError("", "Dublicate");
+                    return View(register);
+                }
+                else
+                {
+                    ModelState.AddModelError("", "");
+                    return View(register);
+                }
+            }
+
+            return View(register);
+        }
+
         public ActionResult Logout()
         {
             accountService.Logout();
@@ -123,85 +187,6 @@ namespace Rent.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-
-        #region AJAX
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ContentResult Login(LoginViewModel model)
-        {
-            string json = "";
-            int rez = 0;
-            string message = "";
-
-            if (ModelState.IsValid)
-            {
-                var status = accountService.Login(model);
-
-                if (status == StatusAccountViewModel.Success)
-                {
-                    message = "Усе добре";
-                    rez = 1;
-                }
-                else
-                    message = "Uncorrected data!";
-            }
-
-            json = JsonConvert.SerializeObject(new
-            {
-                rez = rez,
-                message = message
-            });
-
-            return Content(json, "application/json");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ContentResult Register(RegisterViewModel registerVM)
-        {
-            string json = "";
-            int res = 0;
-            string message = "";
-
-            if(ModelState.IsValid)
-            {
-                var status = accountService.Register(registerVM);
-
-                if(status == StatusAccountViewModel.Success)
-                {
-                    message = "Усе добре";
-                    res = 1;
-
-                    LoginViewModel login = new LoginViewModel
-                    {
-                        Email = registerVM.Email,
-                        Password = registerVM.Password,
-                        IsRememberme = false,
-                    };
-
-                    accountService.Login(login);
-                }
-                else if(status == StatusAccountViewModel.Dublication)
-                {
-                    message = "Error. Dublication!";
-                    res = 2;
-                }
-                else
-                {
-                    message = "Uncorrected data!";
-                }
-            }
-
-            json = JsonConvert.SerializeObject(new
-            {
-                res = res,
-                message = message
-            });
-
-            return Content(json, "application/json");
-        }
-
-        #endregion
 
         private ActionResult RedirectToLocal(string returnUrl)
         {

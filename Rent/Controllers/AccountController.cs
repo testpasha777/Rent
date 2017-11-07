@@ -9,6 +9,7 @@ using Rent.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -54,11 +55,11 @@ namespace Rent.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(RegisterViewModel register)
+        public async Task<ActionResult> Register(RegisterViewModel register)
         {
             if (ModelState.IsValid)
             {
-                var status = accountService.Register(register);
+                var status = await accountService.Register(register);
 
                 if (status == StatusAccountViewModel.Success)
                 {

@@ -10,7 +10,7 @@ namespace BLL.Interface
 {
     public interface IAccountService
     {
-        StatusAccountViewModel Register(RegisterViewModel register);
+        Task<StatusAccountViewModel> Register(RegisterViewModel register);
         StatusAccountViewModel Login(LoginViewModel login);
         StatusAccountViewModel CreateLogin(string email);
         IEnumerable<string> UserRoles(string email);

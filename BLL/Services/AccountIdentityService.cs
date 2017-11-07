@@ -24,6 +24,7 @@ namespace BLL.Services
         private ApplicationUserManager userManager;
         private IAuthenticationManager authenticationManager;
         private IUserProfileRepository userProfileRepository;
+        private ImageService imgService;
 
         public AccountIdentityService(ApplicationUserManager _userManager,
             ApplicationSignInManager _signInManager,
@@ -34,6 +35,7 @@ namespace BLL.Services
             userManager = _userManager;
             authenticationManager = _authManager;
             userProfileRepository = _userProfile;
+            imgService = new ImageService();
         }
 
         public StatusAccountViewModel CreateLogin(string email)
@@ -89,7 +91,7 @@ namespace BLL.Services
             authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
 
-        public StatusAccountViewModel Register(RegisterViewModel register)
+        public async Task<StatusAccountViewModel> Register(RegisterViewModel register)
         {
             var user = new AppUser
             {
@@ -104,6 +106,9 @@ namespace BLL.Services
             {
                 UserProfile userProfile = new UserProfile();
                 //userProfile.AvatarPath
+                var img = imgService.CreateImage(register.avatar, 32, 32);
+                var path = await imgService.Upload(img, register.SurName, "avatar.jpg");
+                var sharedLink = await imgService.SharedFile(path);
                 userProfile.Name = register.Name;
                 userProfile.SurName = register.SurName;
                 userProfile.Id = user.Id;

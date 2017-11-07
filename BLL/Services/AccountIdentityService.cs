@@ -24,18 +24,19 @@ namespace BLL.Services
         private ApplicationUserManager userManager;
         private IAuthenticationManager authenticationManager;
         private IUserProfileRepository userProfileRepository;
-        private ImageService imgService;
+        private IImageService imgService;
 
         public AccountIdentityService(ApplicationUserManager _userManager,
             ApplicationSignInManager _signInManager,
             IAuthenticationManager _authManager,
-            IUserProfileRepository _userProfile)
+            IUserProfileRepository _userProfile,
+            IImageService _imgService)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             authenticationManager = _authManager;
             userProfileRepository = _userProfile;
-            imgService = new ImageService();
+            imgService = _imgService;
         }
 
         public StatusAccountViewModel CreateLogin(string email)
@@ -100,15 +101,13 @@ namespace BLL.Services
             };
 
             var result = userManager.Create(user, register.Password);
-            
 
             if(result.Succeeded)
             {
                 UserProfile userProfile = new UserProfile();
-                //userProfile.AvatarPath
                 var img = imgService.CreateImage(register.avatar, 32, 32);
-                var path = await imgService.Upload(img, register.SurName, "avatar.jpg");
-                var sharedLink = await imgService.SharedFile(path);
+                userProfile.AvatarPath = await imgService.Upload(img, register.SurName, "avatar.jpg");
+                userProfile.AvatarLink = await imgService.SharedFile(userProfile.AvatarPath);
                 userProfile.Name = register.Name;
                 userProfile.SurName = register.SurName;
                 userProfile.Id = user.Id;

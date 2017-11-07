@@ -11,5 +11,7 @@ namespace BLL.Interface
     public interface IImageService
     {
         Bitmap CreateImage(HttpPostedFileBase image, int maxWidth, int maxHeight);
+        Task<string> Upload(Bitmap image, string folder, string fileName);
+        Task<string> SharedFile(string path);
     }
 }

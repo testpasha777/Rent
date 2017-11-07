@@ -16,9 +16,9 @@ namespace BLL.Services
     {
         private DropboxClient dropBoxClient;
 
-        public ImageService()
+        public ImageService(DropboxClient _dropBoxClient)
         {
-            dropBoxClient = new DropboxClient("5nsmQQ0lxRAAAAAAAAAADpJb5tXhe7g_UP4qjke8DyZfMDYB8UUCJNfjC31WQBEC");
+            dropBoxClient = _dropBoxClient;
         }
 
         public Bitmap CreateImage(HttpPostedFileBase image, int maxWidth, int maxHeight)
@@ -69,8 +69,7 @@ namespace BLL.Services
         public async Task<string> SharedFile(string path)
         {
             var shared = await dropBoxClient.Sharing.CreateSharedLinkWithSettingsAsync(path);
-            string dlUrl = ConvertUrlToDlUrl(shared.Url);
-            return dlUrl;
+            return ConvertUrlToDlUrl(shared.Url);
         }
 
         private string ConvertUrlToDlUrl(string url)

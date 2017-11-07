@@ -23,6 +23,8 @@ namespace DAL.Entities.Entities
 
         public string AvatarPath { get; set; }
 
+        public string AvatarLink { get; set; }
+
         public virtual AppUser AppUser { get; set; }
 
     }

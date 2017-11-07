@@ -7,6 +7,7 @@ using DAL.Entities;
 using DAL.Entities.Identity;
 using DAL.Interface;
 using DAL.Repositories;
+using Dropbox.Api;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
@@ -42,12 +43,15 @@ namespace BLL.Services
             builder.RegisterType<ApplicationRoleManager>().AsSelf().InstancePerRequest();
             builder.Register<IAuthenticationManager>(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register<IDataProtectionProvider>(c => app.GetDataProtectionProvider()).InstancePerRequest();
+            builder.Register(c => new DropboxClient("5nsmQQ0lxRAAAAAAAAAADpJb5tXhe7g_UP4qjke8DyZfMDYB8UUCJNfjC31WQBEC")).AsSelf().InstancePerRequest();
 
             //Repository
             builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>().InstancePerRequest();
 
             //Services
             builder.RegisterType<AccountIdentityService>().As<IAccountService>().InstancePerRequest();
+            builder.RegisterType<ImageService>().As<IImageService>().InstancePerRequest();
+            
 
             base.Load(builder);
         }

@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201711051440588_change userProfile table remove age field.Designer.cs">
       <DependentUpon>201711051440588_change userProfile table remove age field.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711071037357_Change UserProfile added field AvatarLink.cs" />
+    <Compile Include="Migrations\201711071037357_Change UserProfile added field AvatarLink.Designer.cs">
+      <DependentUpon>201711071037357_Change UserProfile added field AvatarLink.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\UserProfileRepository.cs" />
@@ -119,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711051440588_change userProfile table remove age field.resx">
       <DependentUpon>201711051440588_change userProfile table remove age field.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071037357_Change UserProfile added field AvatarLink.resx">
+      <DependentUpon>201711071037357_Change UserProfile added field AvatarLink.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

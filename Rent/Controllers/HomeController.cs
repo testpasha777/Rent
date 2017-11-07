@@ -1,8 +1,13 @@
-﻿using System;
+﻿using BLL.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using DAL.Repositories;
+using BLL.Services;
+using DAL.Interface;
 
 namespace Rent.Controllers
 {

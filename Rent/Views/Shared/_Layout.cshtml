@@ -32,11 +32,12 @@
                         {
                             <li>@Html.ActionLink("Admin panel", "Index", "Admin/Home")</li>
                         }
-                        
-                        <li><img class="avatar-img" src="~/Images/Worker/Avatar.jpg"/></li>
-                        @*<li>
-                            @Html.ActionLink("Привіт " + User.Identity.Name, "Manage", "Account")
-                        </li>*@
+
+                        @Html.Action("ShowUserAvatar", "Account")
+                        @*<li><img class="avatar-img" src="~/Images/Worker/Avatar.jpg" /></li>
+                        <li>
+                                @Html.ActionLink("Привіт " + User.Identity.Name, "Manage", "Account")
+                            </li>*@
                         <li>@Html.ActionLink("Вихід", "Logout", "Account")</li>
                     }
                     else
@@ -44,6 +45,7 @@
                         <li>@Html.ActionLink("Login", "Login", "Account");</li>
                         <li>@Html.ActionLink("Register", "Register", "Account");</li>
                     }
+
                 </ul>
             </div>
         </div>

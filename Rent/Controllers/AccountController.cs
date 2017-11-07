@@ -2,6 +2,7 @@
 using BLL.Services;
 using BLL.ViewModel;
 using DAL.Entities.Entities;
+using DAL.Interface;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
@@ -12,16 +13,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Rent.Controllers
 {
     public class AccountController : Controller
     {
         private IAccountService accountService;
+        private IUserProfileRepository userRep;
 
-        public AccountController(IAccountService _accountService)
+        public AccountController(IAccountService _accountService, IUserProfileRepository _userRep)
         {
             accountService = _accountService;
+            userRep = _userRep;
         }
 
         [HttpGet]
@@ -190,6 +194,15 @@ namespace Rent.Controllers
             return View(model);
         }
 
+        [ChildActionOnly]
+        public ActionResult ShowUserAvatar()
+        {
+            var user = userRep.Get(User.Identity.GetUserId());
+            UserAvatarViewModel avatar = new UserAvatarViewModel();
+            avatar.AvatarLink = user.AvatarLink;
+            return PartialView("_UserAvatar", avatar);
+        }
+
         private ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -198,8 +211,6 @@ namespace Rent.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
-
 
         private const string XsrfKey = "XsrfId";
 

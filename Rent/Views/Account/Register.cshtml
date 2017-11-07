@@ -52,10 +52,11 @@
                 @Html.EditorFor(model => model.ConfirmPasword, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ConfirmPasword, "", new { @class = "text-danger" })
             </div>
-            <div>
-                @Html.LabelFor(model => model.avatar)
-                @Html.TextBoxFor(model => model.avatar, new { type = "file" })
-                @Html.ValidationMessageFor(model => model.avatar)
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.avatar)
+                    @Html.TextBoxFor(model => model.avatar, new { type = "file" })
+                </div>
             </div>
         </div>
 

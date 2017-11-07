@@ -64,6 +64,11 @@ namespace BLL.ViewModel
         public string ConfirmPasword { get; set; }
     }
 
+    public class UserAvatarViewModel
+    {
+        public string AvatarLink { get; set; }
+    }
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

@@ -1,0 +1,11 @@
+﻿@model BLL.ViewModel.UserAvatarViewModel
+
+@if (Model.AvatarLink != null)
+{
+    <li><img class="avatar-img" src="@Model.AvatarLink" /></li>
+}
+else
+{
+    <li><img class="avatar-img" src="~/Images/Worker/Avatar.jpg" /></li>
+}
+

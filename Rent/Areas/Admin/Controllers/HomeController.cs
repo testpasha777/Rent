@@ -1,4 +1,6 @@
-﻿using Rent.FiltersApp;
+﻿using DAL.Entities.Entities;
+using DAL.Repositories;
+using Rent.FiltersApp;
 using System;
 using System.Collections.Generic;
 using System.Linq;

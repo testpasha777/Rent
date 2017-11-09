@@ -27,5 +27,7 @@ namespace DAL.Entities.Entities
 
         public virtual AppUser AppUser { get; set; }
 
+        public virtual ICollection<Apartment> Apartments { get; set; }
+
     }
 }

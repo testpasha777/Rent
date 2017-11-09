@@ -31,8 +31,6 @@ namespace DAL.Entities
 
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<ApartmentComfort> ApartmentComforts { get; set; }
-        public virtual DbSet<ApartmentRule> ApartmentRules { get; set; }
-        public virtual DbSet<ApartmentSecurityDevice> ApartmentSecurityDevices { get; set; }
         public virtual DbSet<AvailableToGuest> AvailableToGuests { get; set; }
         public virtual DbSet<City> Cities { get; set; }
         public virtual DbSet<Country> Countries { get; set; }

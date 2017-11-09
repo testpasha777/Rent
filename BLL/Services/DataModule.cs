@@ -49,7 +49,7 @@ namespace BLL.Services
             builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>().InstancePerRequest();
 
             //Services
-            builder.RegisterType<AccountIdentityService>().As<IAccountService>().InstancePerRequest();
+            builder.RegisterType<AccountService>().As<IAccountService>().InstancePerRequest();
             builder.RegisterType<ImageService>().As<IImageService>().InstancePerRequest();
             
 

@@ -77,9 +77,10 @@
   <ItemGroup>
     <Compile Include="Entities\DBInitializer.cs" />
     <Compile Include="Entities\EFContext.cs" />
+    <Compile Include="Entities\Entities\Apartment.cs" />
+    <Compile Include="Entities\Entities\ApartmentCalendar.cs" />
     <Compile Include="Entities\Entities\ApartmentComfort.cs" />
-    <Compile Include="Entities\Entities\ApartmentRule.cs" />
-    <Compile Include="Entities\Entities\ApartmentSecurityDevice.cs" />
+    <Compile Include="Entities\Entities\ApartmentImage.cs" />
     <Compile Include="Entities\Entities\AvailableToGuest.cs" />
     <Compile Include="Entities\Entities\City.cs" />
     <Compile Include="Entities\Entities\Country.cs" />
@@ -112,6 +113,18 @@
     <Compile Include="Migrations\201711080815047_Create city, country, comforts, rules, securityDevices, availableToGuests.Designer.cs">
       <DependentUpon>201711080815047_Create city, country, comforts, rules, securityDevices, availableToGuests.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711081146137_Create 3 many-to-many relationship.cs" />
+    <Compile Include="Migrations\201711081146137_Create 3 many-to-many relationship.Designer.cs">
+      <DependentUpon>201711081146137_Create 3 many-to-many relationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711081206383_Create table calendar and ImagesApartment.cs" />
+    <Compile Include="Migrations\201711081206383_Create table calendar and ImagesApartment.Designer.cs">
+      <DependentUpon>201711081206383_Create table calendar and ImagesApartment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711090812389_Change db remove devices and rules table %3b%28.cs" />
+    <Compile Include="Migrations\201711090812389_Change db remove devices and rules table %3b%28.Designer.cs">
+      <DependentUpon>201711090812389_Change db remove devices and rules table %3b%28.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\UserProfileRepository.cs" />
@@ -139,6 +152,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711080815047_Create city, country, comforts, rules, securityDevices, availableToGuests.resx">
       <DependentUpon>201711080815047_Create city, country, comforts, rules, securityDevices, availableToGuests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711081146137_Create 3 many-to-many relationship.resx">
+      <DependentUpon>201711081146137_Create 3 many-to-many relationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711081206383_Create table calendar and ImagesApartment.resx">
+      <DependentUpon>201711081206383_Create table calendar and ImagesApartment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711090812389_Change db remove devices and rules table %3b%28.resx">
+      <DependentUpon>201711090812389_Change db remove devices and rules table %3b%28.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

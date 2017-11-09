@@ -15,5 +15,7 @@ namespace DAL.Entities.Entities
         public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
+
+        public virtual ICollection<Apartment> Apartments { get; set; }
     }
 }

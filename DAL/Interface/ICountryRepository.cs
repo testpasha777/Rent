@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace DAL.Interface
 {
-    public interface IUserProfileRepository
+    public interface ICountryRepository
     {
-        UserProfile Get(string id);
-        void Create(UserProfile userProfile);
-        void Delete(string id);
+        Country Get(int id);
+        IQueryable<Country> GetAll();
+        void Create(Country country);
+        void Delete(int id);
         void SaveChanges();
     }
 }

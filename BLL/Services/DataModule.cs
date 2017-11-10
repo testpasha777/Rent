@@ -35,7 +35,12 @@ namespace BLL.Services
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new EFContext(connStr)).AsSelf().InstancePerRequest();
+            builder.Register(c => new EFContext(connStr)).As<IEFContext>().InstancePerRequest();
+            builder.Register(ctx => {
+                var context = (EFContext)ctx.Resolve<IEFContext>();
+                return context;
+            }).AsSelf().InstancePerDependency();
+
             builder.RegisterType<ApplicationUserStore>().As<IUserStore<AppUser>>().InstancePerRequest();
             builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest();
             builder.RegisterType<ApplicationSignInManager>().AsSelf().InstancePerRequest();

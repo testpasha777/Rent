@@ -113,7 +113,7 @@ namespace BLL.Services
                 userProfile.Id = user.Id;
 
                 userProfileRepository.Create(userProfile);
-                userProfileRepository.SaveChange();
+                userProfileRepository.SaveChanges();
                 userManager.AddToRole(user.Id, "User");
 
                 return StatusAccountViewModel.Success;

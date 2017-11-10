@@ -11,9 +11,9 @@ namespace DAL.Repositories
 {
     public class UserProfileRepository : IUserProfileRepository
     {
-        private EFContext db;
+        private IEFContext db;
 
-        public UserProfileRepository(EFContext _db)
+        public UserProfileRepository(IEFContext _db)
         {
             db = _db;
         }
@@ -38,7 +38,7 @@ namespace DAL.Repositories
             return db.Set<UserProfile>().Find(id);
         }
 
-        public void SaveChange()
+        public void SaveChanges()
         {
             db.SaveChanges();
         }

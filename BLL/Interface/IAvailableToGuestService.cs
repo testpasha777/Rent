@@ -9,11 +9,11 @@ namespace BLL.Interface
 {
     public interface IAvailableToGuestService
     {
-        bool AddAvailableToGuest(AvailableToGuestCreateViewModel availableToGuestVM);
-        void DeleteAvailableToGuest(int id);
-        bool UpdateAvailableToGuest(AvailableToGuestEditViewModel availableToGuestEditVM);
-        AvailableToGuestViewModel GetAvailableToGuest(int id);
-        AvailableToGuestEditViewModel GetEditAvailableToGuest(int id);
-        IEnumerable<AvailableToGuestViewModel> GetAllAvailableToGuest();
+        bool Add(AvailableToGuestCreateViewModel availableToGuestVM);
+        void Delete(int id);
+        bool Update(AvailableToGuestEditViewModel availableToGuestEditVM);
+        AvailableToGuestViewModel GetById(int id);
+        AvailableToGuestEditViewModel GetEditById(int id);
+        IEnumerable<AvailableToGuestViewModel> GetAll();
     }
 }

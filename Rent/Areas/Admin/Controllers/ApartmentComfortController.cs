@@ -20,7 +20,7 @@ namespace Rent.Areas.Admin.Controllers
         // GET: Admin/ApartmentComfort
         public ActionResult Index()
         {
-            var apartmentComforts = apartmentComfortService.GetAllApartmentComfort();
+            var apartmentComforts = apartmentComfortService.GetAll();
             return View(apartmentComforts);
         }
 
@@ -34,7 +34,7 @@ namespace Rent.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                bool addConfirm = apartmentComfortService.AddApartmentComfort(apartmentComfortVM);
+                bool addConfirm = apartmentComfortService.Create(apartmentComfortVM);
 
                 if(!addConfirm)
                 {
@@ -50,13 +50,13 @@ namespace Rent.Areas.Admin.Controllers
 
         public ActionResult Details(int id)
         {
-            var apartmentComfort = apartmentComfortService.GetApartmentComfort(id);
+            var apartmentComfort = apartmentComfortService.GetById(id);
             return View(apartmentComfort);
         }
 
         public ActionResult Edit(int id)
         {
-            var apartmentComfortEidt = apartmentComfortService.GetEditApartmentComfort(id);
+            var apartmentComfortEidt = apartmentComfortService.GetEditById(id);
             return View(apartmentComfortEidt);
         }
 
@@ -65,7 +65,7 @@ namespace Rent.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                var editConfirm = apartmentComfortService.UpdateApartmentComfort(apartmentComfortVM);
+                var editConfirm = apartmentComfortService.Update(apartmentComfortVM);
 
                 if(!editConfirm)
                 {
@@ -81,7 +81,7 @@ namespace Rent.Areas.Admin.Controllers
 
         public ActionResult Delete(int id)
         {
-            var apartmentComfort = apartmentComfortService.GetApartmentComfort(id);
+            var apartmentComfort = apartmentComfortService.GetById(id);
             return View(apartmentComfort);
         }
 
@@ -89,7 +89,7 @@ namespace Rent.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(int id)
         {
-            apartmentComfortService.DeleteApartmentComfort(id);
+            apartmentComfortService.Delete(id);
             return RedirectToAction("Index");
         }
     }

@@ -19,7 +19,7 @@ namespace BLL.Services
             apartmentComfortRep = _apartmentComfortRep;
         }
 
-        public bool AddApartmentComfort(ApartmentComfortCreateViewModel apartmentComfortVM)
+        public bool Create(ApartmentComfortCreateViewModel apartmentComfortVM)
         {
             var apartmentComfort = apartmentComfortRep.GetByName(apartmentComfortVM.Name);
 
@@ -35,13 +35,13 @@ namespace BLL.Services
             return true;
         }
 
-        public void DeleteApartmentComfort(int id)
+        public void Delete(int id)
         {
             apartmentComfortRep.Delete(id);
             apartmentComfortRep.SaveChanges();
         }
 
-        public ApartmentComfortViewModel GetApartmentComfort(int id)
+        public ApartmentComfortViewModel GetById(int id)
         {
             var apartmentComfort = apartmentComfortRep.GetById(id);
 
@@ -52,7 +52,7 @@ namespace BLL.Services
             };
         }
 
-        public ApartmentComfortEditViewModel GetEditApartmentComfort(int id)
+        public ApartmentComfortEditViewModel GetEditById(int id)
         {
             var apartmentComfort = apartmentComfortRep.GetById(id);
 
@@ -63,7 +63,7 @@ namespace BLL.Services
             };
         }
 
-        public IEnumerable<ApartmentComfortViewModel> GetAllApartmentComfort()
+        public IEnumerable<ApartmentComfortViewModel> GetAll()
         {
             var apartmentComforts = apartmentComfortRep.GetAll().Select(i => new ApartmentComfortViewModel
             {
@@ -74,7 +74,7 @@ namespace BLL.Services
             return apartmentComforts;
         }
 
-        public bool UpdateApartmentComfort(ApartmentComfortEditViewModel apartmentComfortEditVM)
+        public bool Update(ApartmentComfortEditViewModel apartmentComfortEditVM)
         {
             var apartmentComfort = apartmentComfortRep.GetById(apartmentComfortEditVM.Id);
 

@@ -21,7 +21,7 @@ namespace Rent.Areas.Admin.Controllers
         // GET: Admin/AvailableToGuest
         public ActionResult Index()
         {
-            var availableToGuests = availableToGuestService.GetAllAvailableToGuest();
+            var availableToGuests = availableToGuestService.GetAll();
             return View(availableToGuests);
         }
 
@@ -35,7 +35,7 @@ namespace Rent.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                bool addConfirm = availableToGuestService.AddAvailableToGuest(availableToGuestVM);
+                bool addConfirm = availableToGuestService.Add(availableToGuestVM);
 
                 if(!addConfirm)
                 {
@@ -51,7 +51,7 @@ namespace Rent.Areas.Admin.Controllers
 
         public ActionResult Details(int id)
         {
-            var availableToGuest = availableToGuestService.GetAvailableToGuest(id);
+            var availableToGuest = availableToGuestService.GetById(id);
 
             if(availableToGuest == null)
             {
@@ -63,7 +63,7 @@ namespace Rent.Areas.Admin.Controllers
 
         public ActionResult Edit(int id)
         {
-            var availableToGuest = availableToGuestService.GetEditAvailableToGuest(id);
+            var availableToGuest = availableToGuestService.GetEditById(id);
 
             if(availableToGuest == null)
             {
@@ -78,7 +78,7 @@ namespace Rent.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                var editConfirm = availableToGuestService.UpdateAvailableToGuest(availableToGuestEditVM);
+                var editConfirm = availableToGuestService.Update(availableToGuestEditVM);
 
                 if(!editConfirm)
                 {
@@ -94,7 +94,7 @@ namespace Rent.Areas.Admin.Controllers
 
         public ActionResult Delete(int id)
         {
-            var availableToGuest = availableToGuestService.GetAvailableToGuest(id);
+            var availableToGuest = availableToGuestService.GetById(id);
 
             if(availableToGuest == null)
             {
@@ -108,7 +108,7 @@ namespace Rent.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(int id)
         {
-            availableToGuestService.DeleteAvailableToGuest(id);
+            availableToGuestService.Delete(id);
             return RedirectToAction("Index");
         }
     }

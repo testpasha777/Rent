@@ -20,7 +20,7 @@ namespace BLL.Services
             availableToGuestRep = _availableToGuestRep;
         }
 
-        public bool AddAvailableToGuest(AvailableToGuestCreateViewModel availableToGuestVM)
+        public bool Add(AvailableToGuestCreateViewModel availableToGuestVM)
         {
             var availableToGuest = availableToGuestRep.GetByName(availableToGuestVM.Name);
 
@@ -36,13 +36,13 @@ namespace BLL.Services
             return true;
         }
 
-        public void DeleteAvailableToGuest(int id)
+        public void Delete(int id)
         {
             availableToGuestRep.Delete(id);
             availableToGuestRep.SaveChanges();
         }
 
-        public AvailableToGuestViewModel GetAvailableToGuest(int id)
+        public AvailableToGuestViewModel GetById(int id)
         {
             var availableToGuest = availableToGuestRep.GetById(id);
 
@@ -53,7 +53,7 @@ namespace BLL.Services
             };
         }
 
-        public AvailableToGuestEditViewModel GetEditAvailableToGuest(int id)
+        public AvailableToGuestEditViewModel GetEditById(int id)
         {
             var availableToGuest = availableToGuestRep.GetById(id);
 
@@ -64,7 +64,7 @@ namespace BLL.Services
             };
         }
 
-        public IEnumerable<AvailableToGuestViewModel> GetAllAvailableToGuest()
+        public IEnumerable<AvailableToGuestViewModel> GetAll()
         {
             var availableToGuests = availableToGuestRep.GetAll().Select(i => new AvailableToGuestViewModel
             {
@@ -75,7 +75,7 @@ namespace BLL.Services
             return availableToGuests;
         }
 
-        public bool UpdateAvailableToGuest(AvailableToGuestEditViewModel availableToGuestEditVM)
+        public bool Update(AvailableToGuestEditViewModel availableToGuestEditVM)
         {
             var availableToGuest = availableToGuestRep.GetById(availableToGuestEditVM.Id);
 

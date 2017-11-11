@@ -9,7 +9,8 @@ namespace DAL.Interface
 {
     public interface IAvailableToGuestRepository
     {
-        AvailableToGuest Get(int id);
+        AvailableToGuest GetById(int id);
+        AvailableToGuest GetByName(string name);
         IQueryable<AvailableToGuest> GetAll();
         void Create(AvailableToGuest availableToGuest);
         void Delete(int id);

@@ -52,11 +52,16 @@ namespace BLL.Services
 
             //Repository
             builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>().InstancePerRequest();
+            builder.RegisterType<ApartmentComfortRepository>().As<IApartmentComfortRepository>().InstancePerRequest();
+            builder.RegisterType<AvailableToGuestRepository>().As<IAvailableToGuestRepository>().InstancePerRequest();
+            builder.RegisterType<CityRepository>().As<ICityRepository>().InstancePerRequest();
+            builder.RegisterType<CountryRepository>().As<ICountryRepository>().InstancePerRequest();
 
             //Services
             builder.RegisterType<AccountService>().As<IAccountService>().InstancePerRequest();
             builder.RegisterType<ImageService>().As<IImageService>().InstancePerRequest();
-            
+            builder.RegisterType<ApartmentComfortService>().As<IApartmentComfortService>().InstancePerRequest();
+            builder.RegisterType<AvailableToGuestService>().As<IAvailableToGuestService>().InstancePerRequest();
 
             base.Load(builder);
         }

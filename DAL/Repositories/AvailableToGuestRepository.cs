@@ -32,9 +32,14 @@ namespace DAL.Repositories
             }
         }
 
-        public AvailableToGuest Get(int id)
+        public AvailableToGuest GetById(int id)
         {
             return GetAll().SingleOrDefault(i => i.Id == id);
+        }
+
+        public AvailableToGuest GetByName(string name)
+        {
+            return GetAll().SingleOrDefault(i => i.Name == name);
         }
 
         public IQueryable<AvailableToGuest> GetAll()

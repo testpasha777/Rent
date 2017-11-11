@@ -106,7 +106,7 @@ namespace BLL.Services
             {
                 UserProfile userProfile = new UserProfile();
                 var img = imgService.CreateImage(register.avatar, 32, 32);
-                userProfile.AvatarPath = await imgService.Upload(img, register.SurName, "avatar.jpg");
+                userProfile.AvatarPath = await imgService.Upload(img, register.Email, "avatar.jpg");
                 userProfile.AvatarLink = await imgService.SharedFile(userProfile.AvatarPath);
                 userProfile.Name = register.Name;
                 userProfile.SurName = register.SurName;

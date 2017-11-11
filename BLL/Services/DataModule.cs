@@ -56,6 +56,8 @@ namespace BLL.Services
             builder.RegisterType<AvailableToGuestRepository>().As<IAvailableToGuestRepository>().InstancePerRequest();
             builder.RegisterType<CityRepository>().As<ICityRepository>().InstancePerRequest();
             builder.RegisterType<CountryRepository>().As<ICountryRepository>().InstancePerRequest();
+            builder.RegisterType<ApartmentRepository>().As<IApartmentRepository>().InstancePerRequest();
+            builder.RegisterType<ApartmentImageRepository>().As<IApartmentImageRepository>().InstancePerRequest();
 
             //Services
             builder.RegisterType<AccountService>().As<IAccountService>().InstancePerRequest();

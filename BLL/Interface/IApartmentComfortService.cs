@@ -9,10 +9,11 @@ namespace BLL.Interface
 {
     public interface IApartmentComfortService
     {
-        bool AddApartmentComfort(ApartmentComfortViewModel apartmentComfort);
+        bool AddApartmentComfort(ApartmentComfortCreateViewModel apartmentComfortVM);
         void DeleteApartmentComfort(int id);
-        bool UpdateApartmentComfort(ApartmentComfortEditViewModel apartmentComfortEdit);
+        bool UpdateApartmentComfort(ApartmentComfortEditViewModel apartmentComfortEditVM);
         ApartmentComfortViewModel GetApartmentComfort(int id);
-        IEnumerable<ApartmentComfortViewModel> GetApartmentComforts();
+        ApartmentComfortEditViewModel GetEditApartmentComfort(int id);
+        IEnumerable<ApartmentComfortViewModel> GetAllApartmentComfort();
     }
 }

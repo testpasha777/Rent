@@ -197,6 +197,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApartmentComfortController.cs" />
     <Compile Include="Areas\Admin\Controllers\AvailableToGuestController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\RoleController.cs" />
@@ -255,6 +256,11 @@
     <Content Include="Areas\Admin\Views\AvailableToGuest\Details.cshtml" />
     <Content Include="Areas\Admin\Views\AvailableToGuest\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\AvailableToGuest\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ApartmentComfort\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ApartmentComfort\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ApartmentComfort\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ApartmentComfort\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ApartmentComfort\Delete.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

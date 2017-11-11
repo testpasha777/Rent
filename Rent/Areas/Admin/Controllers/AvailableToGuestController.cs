@@ -78,9 +78,9 @@ namespace Rent.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                var search = availableToGuestService.UpdateAvailableToGuest(availableToGuestEditVM);
+                var editConfirm = availableToGuestService.UpdateAvailableToGuest(availableToGuestEditVM);
 
-                if(!search)
+                if(!editConfirm)
                 {
                     ModelState.AddModelError("Name", "Name alreary exists");
                     return View(availableToGuestEditVM);

@@ -32,9 +32,14 @@ namespace DAL.Repositories
             }
         }
 
-        public ApartmentComfort Get(int id)
+        public ApartmentComfort GetById(int id)
         {
             return GetAll().SingleOrDefault(i => i.Id == id);
+        }
+
+        public ApartmentComfort GetByName(string name)
+        {
+            return GetAll().SingleOrDefault(i => i.Name == name);
         }
 
         public IQueryable<ApartmentComfort> GetAll()

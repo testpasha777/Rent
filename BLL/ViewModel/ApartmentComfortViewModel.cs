@@ -17,12 +17,16 @@ namespace BLL.ViewModel
 
     public class ApartmentComfortCreateViewModel
     {
+        [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
     }
 
     public class ApartmentComfortEditViewModel
     {
+        public int Id { get; set; }
+
+        [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
     }

@@ -9,7 +9,8 @@ namespace DAL.Interface
 {
     public interface IApartmentComfortRepository
     {
-        ApartmentComfort Get(int id);
+        ApartmentComfort GetById(int id);
+        ApartmentComfort GetByName(string name);
         IQueryable<ApartmentComfort> GetAll();
         void Create(ApartmentComfort comfort);
         void Delete(int id);

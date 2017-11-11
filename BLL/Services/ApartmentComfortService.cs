@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL.ViewModel;
 using DAL.Interface;
+using DAL.Entities.Entities;
 
 namespace BLL.Services
 {
@@ -18,29 +19,73 @@ namespace BLL.Services
             apartmentComfortRep = _apartmentComfortRep;
         }
 
-        public bool AddApartmentComfort(ApartmentComfortViewModel apartmentComfort)
+        public bool AddApartmentComfort(ApartmentComfortCreateViewModel apartmentComfortVM)
         {
-            throw new NotImplementedException();
+            var apartmentComfort = apartmentComfortRep.GetByName(apartmentComfortVM.Name);
+
+            if(apartmentComfort != null)
+            {
+                return false;
+            }
+
+            ApartmentComfort add = new ApartmentComfort();
+            add.Name = apartmentComfortVM.Name;
+            apartmentComfortRep.Create(add);
+            apartmentComfortRep.SaveChanges();
+            return true;
         }
 
         public void DeleteApartmentComfort(int id)
         {
-            throw new NotImplementedException();
+            apartmentComfortRep.Delete(id);
+            apartmentComfortRep.SaveChanges();
         }
 
         public ApartmentComfortViewModel GetApartmentComfort(int id)
         {
-            throw new NotImplementedException();
+            var apartmentComfort = apartmentComfortRep.GetById(id);
+
+            return new ApartmentComfortViewModel
+            {
+                Id = apartmentComfort.Id,
+                Name = apartmentComfort.Name
+            };
         }
 
-        public IEnumerable<ApartmentComfortViewModel> GetApartmentComforts()
+        public ApartmentComfortEditViewModel GetEditApartmentComfort(int id)
         {
-            throw new NotImplementedException();
+            var apartmentComfort = apartmentComfortRep.GetById(id);
+
+            return new ApartmentComfortEditViewModel
+            {
+                Id = apartmentComfort.Id,
+                Name = apartmentComfort.Name
+            };
         }
 
-        public bool UpdateApartmentComfort(ApartmentComfortEditViewModel apartmentComfortEdit)
+        public IEnumerable<ApartmentComfortViewModel> GetAllApartmentComfort()
         {
-            throw new NotImplementedException();
+            var apartmentComforts = apartmentComfortRep.GetAll().Select(i => new ApartmentComfortViewModel
+            {
+                Id = i.Id,
+                Name = i.Name
+            });
+
+            return apartmentComforts;
+        }
+
+        public bool UpdateApartmentComfort(ApartmentComfortEditViewModel apartmentComfortEditVM)
+        {
+            var apartmentComfort = apartmentComfortRep.GetById(apartmentComfortEditVM.Id);
+
+            if(apartmentComfort == null)
+            {
+                return false;
+            }
+
+            apartmentComfort.Name = apartmentComfortEditVM.Name;
+            apartmentComfortRep.SaveChanges();
+            return true;
         }
     }
 }

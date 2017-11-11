@@ -32,9 +32,14 @@ namespace DAL.Repositories
             }
         }
 
-        public Country Get(int id)
+        public Country GetById(int id)
         {
             return GetAll().SingleOrDefault(i => i.Id == id);
+        }
+
+        public Country GetByName(string name)
+        {
+            return GetAll().SingleOrDefault(i => i.Name == name);
         }
 
         public IQueryable<Country> GetAll()

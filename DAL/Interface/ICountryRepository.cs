@@ -9,7 +9,8 @@ namespace DAL.Interface
 {
     public interface ICountryRepository
     {
-        Country Get(int id);
+        Country GetById(int id);
+        Country GetByName(string name);
         IQueryable<Country> GetAll();
         void Create(Country country);
         void Delete(int id);

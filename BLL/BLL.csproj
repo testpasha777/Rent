@@ -129,11 +129,15 @@
     <Compile Include="Interface\IAccountService.cs" />
     <Compile Include="Interface\IApartmentComfortService.cs" />
     <Compile Include="Interface\IAvailableToGuestService.cs" />
+    <Compile Include="Interface\ICityService.cs" />
+    <Compile Include="Interface\ICountryService.cs" />
     <Compile Include="Interface\IImageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\ApartmentComfortService.cs" />
     <Compile Include="Services\AvailableToGuestService.cs" />
+    <Compile Include="Services\CityService.cs" />
+    <Compile Include="Services\CountryService.cs" />
     <Compile Include="Services\DataModule.cs" />
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="ViewModel\AccountViewModel.cs" />

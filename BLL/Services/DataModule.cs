@@ -62,6 +62,8 @@ namespace BLL.Services
             builder.RegisterType<ImageService>().As<IImageService>().InstancePerRequest();
             builder.RegisterType<ApartmentComfortService>().As<IApartmentComfortService>().InstancePerRequest();
             builder.RegisterType<AvailableToGuestService>().As<IAvailableToGuestService>().InstancePerRequest();
+            builder.RegisterType<CountryService>().As<ICountryService>().InstancePerRequest();
+            builder.RegisterType<CityService>().As<ICityService>().InstancePerRequest();
 
             base.Load(builder);
         }

@@ -13,6 +13,9 @@ namespace BLL.ViewModel
 
         [Display(Name = "Name")]
         public string Name { get; set; }
+
+        [Display(Name = "Country")]
+        public string Country { get; set; }
     }
 
     public class CityEditViewModel
@@ -21,11 +24,23 @@ namespace BLL.ViewModel
 
         [Display(Name = "Name")]
         public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Country")]
+        public int CountryId { get; set; }
+
+        public List<SelectItemViewModel> Countries { get; set; }
     }
 
     public class CityCreateViewModel
     {
         [Display(Name = "Name")]
         public string Name { get; set; }
+
+        [Required]
+        [Display(Name = "Country")]
+        public int CountryId { get; set; }
+
+        public List<SelectItemViewModel> Countries { get; set; }
     }
 }

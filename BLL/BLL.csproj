@@ -145,6 +145,7 @@
     <Compile Include="ViewModel\AvailableToGuestViewModel.cs" />
     <Compile Include="ViewModel\CityViewModel.cs" />
     <Compile Include="ViewModel\CountryViewModel.cs" />
+    <Compile Include="ViewModel\HelperViewModel.cs" />
     <Compile Include="ViewModel\RoleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

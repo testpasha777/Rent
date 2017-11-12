@@ -9,7 +9,8 @@ namespace DAL.Interface
 {
     public interface ICityRepository
     {
-        City Get(int id);
+        City GetById(int id);
+        City GetCityInCountry(int countryId, string cityName);
         IQueryable<City> GetAll();
         void Create(City city);
         void Delete(int id);

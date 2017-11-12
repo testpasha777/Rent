@@ -9,7 +9,7 @@ namespace BLL.Interface
 {
     public interface ICountryService
     {
-        bool Add(CountryCreateViewModel countryVM);
+        bool Create(CountryCreateViewModel countryVM);
         void Delete(int id);
         bool Update(CountryEditViewModel countryVM);
         CountryViewModel GetById(int id);

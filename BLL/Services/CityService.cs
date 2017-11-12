@@ -21,7 +21,7 @@ namespace BLL.Services
             countryRep = _countryRep;
         }
 
-        public bool Add(CityCreateViewModel cityVM)
+        public bool Create(CityCreateViewModel cityVM)
         {
             var city = cityRep.GetCityInCountry(cityVM.CountryId, cityVM.Name);
 

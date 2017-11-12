@@ -58,6 +58,7 @@ namespace BLL.Services
             builder.RegisterType<CountryRepository>().As<ICountryRepository>().InstancePerRequest();
             builder.RegisterType<ApartmentRepository>().As<IApartmentRepository>().InstancePerRequest();
             builder.RegisterType<ApartmentImageRepository>().As<IApartmentImageRepository>().InstancePerRequest();
+            builder.RegisterType<TypeOfHousingRepository>().As<ITypeOfHousingRepository>().InstancePerRequest();
 
             //Services
             builder.RegisterType<AccountService>().As<IAccountService>().InstancePerRequest();
@@ -66,6 +67,7 @@ namespace BLL.Services
             builder.RegisterType<AvailableToGuestService>().As<IAvailableToGuestService>().InstancePerRequest();
             builder.RegisterType<CountryService>().As<ICountryService>().InstancePerRequest();
             builder.RegisterType<CityService>().As<ICityService>().InstancePerRequest();
+            builder.RegisterType<TypeOfHousingService>().As<ITypeOfHousingService>().InstancePerRequest();
 
             base.Load(builder);
         }

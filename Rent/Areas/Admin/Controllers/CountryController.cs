@@ -34,7 +34,7 @@ namespace Rent.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                bool createRes = countryService.Add(countryVM);
+                bool createRes = countryService.Create(countryVM);
 
                 if(!createRes)
                 {

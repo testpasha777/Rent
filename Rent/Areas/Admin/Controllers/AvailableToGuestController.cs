@@ -35,7 +35,7 @@ namespace Rent.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                bool addConfirm = availableToGuestService.Add(availableToGuestVM);
+                bool addConfirm = availableToGuestService.Create(availableToGuestVM);
 
                 if(!addConfirm)
                 {

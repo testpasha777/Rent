@@ -9,7 +9,7 @@ namespace BLL.Interface
 {
     public interface IAvailableToGuestService
     {
-        bool Add(AvailableToGuestCreateViewModel availableToGuestVM);
+        bool Create(AvailableToGuestCreateViewModel availableToGuestVM);
         void Delete(int id);
         bool Update(AvailableToGuestEditViewModel availableToGuestEditVM);
         AvailableToGuestViewModel GetById(int id);

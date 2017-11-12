@@ -19,7 +19,7 @@ namespace BLL.Services
             countryRep = _countryRep;
         }
 
-        public bool Add(CountryCreateViewModel countryVM)
+        public bool Create(CountryCreateViewModel countryVM)
         {
             var country = countryRep.GetByName(countryVM.Name);
 

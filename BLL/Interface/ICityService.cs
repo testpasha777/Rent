@@ -9,7 +9,7 @@ namespace BLL.Interface
 {
     public interface ICityService
     {
-        bool Add(CityCreateViewModel cityVM);
+        bool Create(CityCreateViewModel cityVM);
         void Delete(int id);
         bool Update(CityEditViewModel cityVM);
         CityViewModel GetById(int id);

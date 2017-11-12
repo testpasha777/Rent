@@ -35,7 +35,7 @@ namespace Rent.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool addConfirm = cityService.Add(cityVM);
+                bool addConfirm = cityService.Create(cityVM);
 
                 if (!addConfirm)
                 {

@@ -97,6 +97,7 @@
     <Compile Include="Interface\ICityRepository.cs" />
     <Compile Include="Interface\ICountryRepository.cs" />
     <Compile Include="Interface\IEFContext.cs" />
+    <Compile Include="Interface\ITypeOfHousingRepository.cs" />
     <Compile Include="Interface\IUnitOfWork.cs" />
     <Compile Include="Interface\IUserProfileRepository.cs" />
     <Compile Include="Migrations\201710291108203_create db with identity.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="Repositories\AvailableToGuestRepository.cs" />
     <Compile Include="Repositories\CityRepository.cs" />
     <Compile Include="Repositories\CountryRepository.cs" />
+    <Compile Include="Repositories\TypeOfHousingRepository.cs" />
     <Compile Include="Repositories\UserProfileRepository.cs" />
   </ItemGroup>
   <ItemGroup>

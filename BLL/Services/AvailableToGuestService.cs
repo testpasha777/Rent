@@ -20,7 +20,7 @@ namespace BLL.Services
             availableToGuestRep = _availableToGuestRep;
         }
 
-        public bool Add(AvailableToGuestCreateViewModel availableToGuestVM)
+        public bool Create(AvailableToGuestCreateViewModel availableToGuestVM)
         {
             var availableToGuest = availableToGuestRep.GetByName(availableToGuestVM.Name);
 

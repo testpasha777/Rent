@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,10 @@ namespace DAL.Entities.Entities
     {
         public int Id { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         public string Address { get; set; }
 
         public decimal Price { get; set; }
@@ -23,6 +26,10 @@ namespace DAL.Entities.Entities
         public int AvailableToGuestId { get; set; }
 
         public string UserProfileId { get; set; }
+
+        public int TypeOfHousingId { get; set; }
+
+        public virtual TypeOfHousing TypeOfHousing { get; set; }
 
         public virtual City City { get; set; }
 

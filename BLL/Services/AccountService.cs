@@ -25,18 +25,21 @@ namespace BLL.Services
         private IAuthenticationManager authenticationManager;
         private IUserProfileRepository userProfileRepository;
         private IImageService imgService;
+        private IUnitOfWork unitOfWork;
 
         public AccountService(ApplicationUserManager _userManager,
             ApplicationSignInManager _signInManager,
             IAuthenticationManager _authManager,
             IUserProfileRepository _userProfile,
-            IImageService _imgService)
+            IImageService _imgService,
+            IUnitOfWork _unitOfWork)
         {
             signInManager = _signInManager;
             userManager = _userManager;
             authenticationManager = _authManager;
             userProfileRepository = _userProfile;
             imgService = _imgService;
+            unitOfWork = _unitOfWork;
         }
 
         public StatusAccountViewModel CreateLogin(string email)
@@ -94,29 +97,38 @@ namespace BLL.Services
 
         public async Task<StatusAccountViewModel> Register(RegisterViewModel register)
         {
-            var user = new AppUser
+            try
             {
-                UserName = register.Email,
-                Email = register.Email
-            };
+                unitOfWork.StartTransaction();
+                var user = new AppUser
+                {
+                    UserName = register.Email,
+                    Email = register.Email
+                };
 
-            var result = userManager.Create(user, register.Password);
+                var result = userManager.Create(user, register.Password);
 
-            if(result.Succeeded)
+                if (result.Succeeded)
+                {
+                    UserProfile userProfile = new UserProfile();
+                    var img = imgService.CreateImage(register.avatar, 32, 32);
+                    userProfile.AvatarPath = await imgService.Upload(img, register.Email, register.avatar.FileName);
+                    userProfile.AvatarLink = await imgService.SharedFile(userProfile.AvatarPath);
+                    userProfile.Name = register.Name;
+                    userProfile.SurName = register.SurName;
+                    userProfile.Id = user.Id;
+
+                    userProfileRepository.Create(userProfile);
+                    userProfileRepository.SaveChanges();
+                    userManager.AddToRole(user.Id, "User");
+                    unitOfWork.CommitTransaction();
+
+                    return StatusAccountViewModel.Success;
+                }
+            }
+            catch
             {
-                UserProfile userProfile = new UserProfile();
-                var img = imgService.CreateImage(register.avatar, 32, 32);
-                userProfile.AvatarPath = await imgService.Upload(img, register.Email, register.avatar.FileName);
-                userProfile.AvatarLink = await imgService.SharedFile(userProfile.AvatarPath);
-                userProfile.Name = register.Name;
-                userProfile.SurName = register.SurName;
-                userProfile.Id = user.Id;
-
-                userProfileRepository.Create(userProfile);
-                userProfileRepository.SaveChanges();
-                userManager.AddToRole(user.Id, "User");
-
-                return StatusAccountViewModel.Success;
+               await imgService.DeleteFile("/" + register.Email);
             }
 
             return StatusAccountViewModel.Error;

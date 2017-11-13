@@ -15,10 +15,12 @@ namespace BLL.Services
     public class ImageService : IImageService
     {
         private DropboxClient dropBoxClient;
+        private string imgPath;
 
         public ImageService(DropboxClient _dropBoxClient)
         {
             dropBoxClient = _dropBoxClient;
+            imgPath = "";
         }
 
         public Bitmap CreateImage(HttpPostedFileBase image, int maxWidth, int maxHeight)
@@ -62,6 +64,7 @@ namespace BLL.Services
             using (var memory = new MemoryStream(ImageToByte(image)))
             {
                var upload = await dropBoxClient.Files.UploadAsync("/" + folder + "/" + fileName, body: memory);
+               imgPath = upload.PathLower;
                return upload.PathLower;
             }
         }
@@ -70,6 +73,11 @@ namespace BLL.Services
         {
             var shared = await dropBoxClient.Sharing.CreateSharedLinkWithSettingsAsync(path);
             return ConvertUrlToDlUrl(shared.Url);
+        }
+
+        public async Task DeleteFile(string path)
+        {
+            await dropBoxClient.Files.DeleteV2Async(path);
         }
 
         private string ConvertUrlToDlUrl(string url)

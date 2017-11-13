@@ -3,6 +3,7 @@ using Autofac.Core;
 using BLL.Infrastructure.Identity;
 using BLL.Infrastructure.IdentityConfig;
 using BLL.Interface;
+using DAL.Concrete;
 using DAL.Entities;
 using DAL.Entities.Identity;
 using DAL.Interface;
@@ -59,6 +60,7 @@ namespace BLL.Services
             builder.RegisterType<ApartmentRepository>().As<IApartmentRepository>().InstancePerRequest();
             builder.RegisterType<ApartmentImageRepository>().As<IApartmentImageRepository>().InstancePerRequest();
             builder.RegisterType<TypeOfHousingRepository>().As<ITypeOfHousingRepository>().InstancePerRequest();
+            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
 
             //Services
             builder.RegisterType<AccountService>().As<IAccountService>().InstancePerRequest();

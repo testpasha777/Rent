@@ -13,5 +13,6 @@ namespace BLL.Interface
         Bitmap CreateImage(HttpPostedFileBase image, int maxWidth, int maxHeight);
         Task<string> Upload(Bitmap image, string folder, string fileName);
         Task<string> SharedFile(string path);
+        Task DeleteFile(string path);
     }
 }

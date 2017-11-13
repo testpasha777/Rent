@@ -74,14 +74,15 @@ namespace BLL.Services
 
         public bool Update(CountryEditViewModel countryVM)
         {
-            var country = countryRep.GetById(countryVM.Id);
+            var country = countryRep.GetByName(countryVM.Name);
 
-            if(country == null)
+            if(country != null && country.Id != countryVM.Id)
             {
                 return false;
             }
 
-            country.Name = countryVM.Name;
+            var update = countryRep.GetById(countryVM.Id);
+            update.Name = countryVM.Name;
             countryRep.SaveChanges();
             return true;
         }

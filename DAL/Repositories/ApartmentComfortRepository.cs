@@ -24,7 +24,7 @@ namespace DAL.Repositories
 
         public void Delete(int id)
         {
-            var apartmentComfort = GetAll().SingleOrDefault(i => i.Id == id);
+            var apartmentComfort = GetById(id);
 
             if(apartmentComfort != null)
             {

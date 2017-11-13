@@ -69,7 +69,7 @@ namespace Rent.Areas.Admin.Controllers
 
                 if(!editConfirm)
                 {
-                    ModelState.AddModelError("Name", "Name alreadt exists");
+                    ModelState.AddModelError("Name", "Name already exists");
                     return View(apartmentComfortVM);
                 }
 

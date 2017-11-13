@@ -24,7 +24,7 @@ namespace DAL.Repositories
 
         public void Delete(int id)
         {
-            var country = GetAll().SingleOrDefault(i => i.Id == id);
+            var country = GetById(id);
 
             if(country != null)
             {

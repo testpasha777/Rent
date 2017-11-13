@@ -76,14 +76,15 @@ namespace BLL.Services
 
         public bool Update(ApartmentComfortEditViewModel apartmentComfortEditVM)
         {
-            var apartmentComfort = apartmentComfortRep.GetById(apartmentComfortEditVM.Id);
+            var comfort = apartmentComfortRep.GetByName(apartmentComfortEditVM.Name);
 
-            if(apartmentComfort == null)
+            if(comfort != null && comfort.Id != apartmentComfortEditVM.Id)
             {
                 return false;
             }
 
-            apartmentComfort.Name = apartmentComfortEditVM.Name;
+            var update = apartmentComfortRep.GetById(apartmentComfortEditVM.Id);
+            update.Name = apartmentComfortEditVM.Name;
             apartmentComfortRep.SaveChanges();
             return true;
         }

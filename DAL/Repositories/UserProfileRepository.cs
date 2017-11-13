@@ -25,7 +25,7 @@ namespace DAL.Repositories
 
         public void Delete(string id)
         {
-            UserProfile userProfile = db.Set<UserProfile>().SingleOrDefault(i => i.Id == id);
+            var userProfile = Get(id);
 
             if(userProfile != null)
             {

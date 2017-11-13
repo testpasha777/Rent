@@ -77,14 +77,15 @@ namespace BLL.Services
 
         public bool Update(AvailableToGuestEditViewModel availableToGuestEditVM)
         {
-            var availableToGuest = availableToGuestRep.GetById(availableToGuestEditVM.Id);
+            var availableToGuest = availableToGuestRep.GetByName(availableToGuestEditVM.Name);
 
-            if(availableToGuest == null)
+            if(availableToGuest != null && availableToGuest.Id != availableToGuestEditVM.Id)
             {
                 return false;
             }
 
-            availableToGuest.Name = availableToGuestEditVM.Name;
+            var update = availableToGuestRep.GetById(availableToGuestEditVM.Id);
+            update.Name = availableToGuestEditVM.Name;
             availableToGuestRep.SaveChanges();
             return true;
         }

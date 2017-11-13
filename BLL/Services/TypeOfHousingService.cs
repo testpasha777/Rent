@@ -76,14 +76,15 @@ namespace BLL.Services
 
         public bool Update(TypeOfHousingEditViewModel typeOfHousingVM)
         {
-            var typeOfHousing = typeOfHousingRep.GetById(typeOfHousingVM.Id);
+            var typeOfHousing = typeOfHousingRep.GetByName(typeOfHousingVM.Name);
 
-            if(typeOfHousing == null)
+            if(typeOfHousing != null && typeOfHousing.Id != typeOfHousingVM.Id)
             {
                 return false;
             }
 
-            typeOfHousing.Name = typeOfHousingVM.Name;
+            var update = typeOfHousingRep.GetById(typeOfHousingVM.Id);
+            update.Name = typeOfHousingVM.Name;
             typeOfHousingRep.SaveChanges();
             return true;
         }

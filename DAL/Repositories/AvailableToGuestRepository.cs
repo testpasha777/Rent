@@ -24,7 +24,7 @@ namespace DAL.Repositories
 
         public void Delete(int id)
         {
-            var availableToGuest = GetAll().SingleOrDefault(i => i.Id == id);
+            var availableToGuest = GetById(id);
 
             if(availableToGuest != null)
             {

@@ -1,0 +1,63 @@
+﻿@model BLL.ViewModel.ApartmentCreateViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create advertisement</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.AvailableToGuestId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @for (var i = 0; i < Model.AvailableToGuest.Count(); i++)
+                {
+                    @Html.HiddenFor(y => y.AvailableToGuest[i].Id)
+                    @Html.HiddenFor(y => y.AvailableToGuest[i].Name)
+                }
+
+                @Html.DropDownListFor(model => model.AvailableToGuestId, Model
+                                                     .AvailableToGuest
+                                                     .Select(c => new SelectListItem
+                                                     {
+                                                         Value = c.Id.ToString(),
+                                                         Text = c.Name
+                                                     }), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AvailableToGuestId, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.MaxNumberOfGuests, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.MaxNumberOfGuests, new { htmlAttributes = new { @min = 1, @max = 16, @Value = 2, @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaxNumberOfGuests, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TypeOfHousingId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @for (var i = 0; i < Model.TypeOfHousing.Count(); i++)
+                {
+                    @Html.HiddenFor(y => y.TypeOfHousing[i].Id)
+                    @Html.HiddenFor(y => y.TypeOfHousing[i].Name)
+                }
+
+                @Html.DropDownListFor(model => model.TypeOfHousingId, Model
+                                                     .TypeOfHousing
+                                                     .Select(c => new SelectListItem
+                                                     {
+                                                         Value = c.Id.ToString(),
+                                                         Text = c.Name
+                                                     }), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TypeOfHousingId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+}
+

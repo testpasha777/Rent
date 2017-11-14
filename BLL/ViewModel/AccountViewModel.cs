@@ -11,13 +11,6 @@ namespace BLL.ViewModel
 {
     public class LoginViewModel
     {
-        public LoginViewModel()
-        {
-            LoginProviders = HttpContext.Current.GetOwinContext()
-                .Authentication.
-                GetExternalAuthenticationTypes();
-        }
-
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -30,8 +23,6 @@ namespace BLL.ViewModel
 
         [Display(Name = "Remember me")]
         public bool IsRememberme { get; set; }
-
-        public IEnumerable<AuthenticationDescription> LoginProviders { get; set; }
     }
 
     public class RegisterViewModel

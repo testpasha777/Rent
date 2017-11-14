@@ -128,6 +128,7 @@
     <Compile Include="Infrastructure\IdentityConfig\ApplicationUserManager.cs" />
     <Compile Include="Interface\IAccountService.cs" />
     <Compile Include="Interface\IApartmentComfortService.cs" />
+    <Compile Include="Interface\IApartmentService.cs" />
     <Compile Include="Interface\IAvailableToGuestService.cs" />
     <Compile Include="Interface\ICityService.cs" />
     <Compile Include="Interface\ICountryService.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\ApartmentComfortService.cs" />
+    <Compile Include="Services\ApartmentService.cs" />
     <Compile Include="Services\AvailableToGuestService.cs" />
     <Compile Include="Services\CityService.cs" />
     <Compile Include="Services\CountryService.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="Services\TypeOfHousingService.cs" />
     <Compile Include="ViewModel\AccountViewModel.cs" />
     <Compile Include="ViewModel\ApartmentComfortViewModel.cs" />
+    <Compile Include="ViewModel\ApartmentViewModel.cs" />
     <Compile Include="ViewModel\AvailableToGuestViewModel.cs" />
     <Compile Include="ViewModel\CityViewModel.cs" />
     <Compile Include="ViewModel\CountryViewModel.cs" />

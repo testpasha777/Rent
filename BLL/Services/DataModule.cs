@@ -70,6 +70,7 @@ namespace BLL.Services
             builder.RegisterType<CountryService>().As<ICountryService>().InstancePerRequest();
             builder.RegisterType<CityService>().As<ICityService>().InstancePerRequest();
             builder.RegisterType<TypeOfHousingService>().As<ITypeOfHousingService>().InstancePerRequest();
+            builder.RegisterType<ApartmentService>().As<IApartmentService>().InstancePerRequest();
 
             base.Load(builder);
         }

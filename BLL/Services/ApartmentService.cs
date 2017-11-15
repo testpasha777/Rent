@@ -14,14 +14,17 @@ namespace BLL.Services
         private IApartmentRepository apartmentRep;
         private IAvailableToGuestService availableToGuestService;
         private ITypeOfHousingService typeOfHousingService;
+        private IApartmentComfortService apartmentComfortService;
 
         public ApartmentService(IApartmentRepository _apartmentRep,
             IAvailableToGuestService _availableToGuestService,
-            ITypeOfHousingService _typeOfHousingService)
+            ITypeOfHousingService _typeOfHousingService,
+            IApartmentComfortService _apartmentComfortService)
         {
             apartmentRep = _apartmentRep;
             availableToGuestService = _availableToGuestService;
             typeOfHousingService = _typeOfHousingService;
+            apartmentComfortService = _apartmentComfortService;
         }
 
         public ApartmentCreateViewModel GetCreateApartment()
@@ -29,6 +32,8 @@ namespace BLL.Services
             ApartmentCreateViewModel apartmentCreate = new ApartmentCreateViewModel();
             apartmentCreate.AvailableToGuest = availableToGuestService.GetAll().ToList();
             apartmentCreate.TypeOfHousing = typeOfHousingService.GetAll().ToList();
+            apartmentCreate.ApartmentComforts = apartmentComfortService.GetAll().ToList();
+            apartmentCreate.ApartmentImages = new List<System.Web.HttpPostedFileBase>();
 
             return apartmentCreate;
         }

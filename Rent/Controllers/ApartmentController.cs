@@ -28,5 +28,12 @@ namespace Rent.Controllers
             ApartmentCreateViewModel apartmentCreateVM = apartmentService.GetCreateApartment();
             return View(apartmentCreateVM);
         }
+
+        [HttpPost]
+        public ActionResult Create(ApartmentCreateViewModel apartmentCreateVM)
+        {
+
+            return View(apartmentCreateVM);
+        }
     }
 }

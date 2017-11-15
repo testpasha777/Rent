@@ -29,28 +29,33 @@ namespace BLL.ViewModel
 
         [Required]
         [Display(Name = "Max number of guests")]
-        [MinLength(1), MaxLength(16)]
+        //[MinLength(1), MaxLength(16)]
         public int MaxNumberOfGuests { get; set; }
 
-        [Required]
-        [Display(Name = "City")]
-        public int CityId { get; set; }
+        //[Required]
+        //[Display(Name = "City")]
+        //public int CityId { get; set; }
 
         [Required]
         [Display(Name = "Available to guest")]
         public int AvailableToGuestId { get; set; }
 
-        public int UserProfileId { get; set; }
+        public string UserProfileId { get; set; }
 
         [Required]
         [Display(Name = "Type of housing")]
         public int TypeOfHousingId { get; set; }
 
+        [Required]
+        public List<HttpPostedFileBase> ApartmentImages { get; set; }
+
+        [Display(Name = "Select Apartment comfort")]
+        public List<string> SelectedApartmentComfortsId { get; set; }
+
         public List<SelectItemViewModel> Cities { get; set; }
         public List<AvailableToGuestViewModel> AvailableToGuest { get; set; }
         public List<TypeOfHousingViewModel> TypeOfHousing { get; set; }
-        public List<SelectItemViewModel> ApartmentComforts { get; set; }
-        public List<HttpPostedFileBase> ApartmentImages { get; set; }
+        public List<ApartmentComfortViewModel> ApartmentComforts { get; set; }
     }
 
     public class ApartmentEditViewModel

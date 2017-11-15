@@ -10,7 +10,7 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal" id="createApartmentForm">
         <div class="form-group">
             @Html.LabelFor(model => model.TypeOfHousingId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
@@ -95,13 +95,13 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ApartmentImages, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.images, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.ApartmentImages, htmlAttributes: new { type = "file", multiple = true, @class = "form-control" })
+                @Html.TextBoxFor(model => model.images, htmlAttributes: new { type = "file", multiple = true, @class = "form-control", @id = "addImg" })
             </div>
         </div>
 
-        @Html.HiddenFor(model => model.ApartmentImages, htmlAttributes: new { @id = "testImg"})
+        @*@Html.HiddenFor(model => model.ApartmentImages, htmlAttributes: new { @id = "testImg"})*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -120,6 +120,13 @@
     <script>
         $('.chosen-select').chosen();
         $('chosen-select-deselect').chosen({ allow_single_deselect: true });
+        var form = document.getElementById("createApartmentForm");
+        document.getElementById("addImg").addEventListener("change", function () {
+            console.log("11");
+            var input = document.createElement("textarea");
+            input.name = "images";
+            form.appendChild(input);
+        });
     </script>
 }
 

@@ -46,8 +46,7 @@ namespace BLL.ViewModel
         [Display(Name = "Type of housing")]
         public int TypeOfHousingId { get; set; }
 
-        [Required]
-        public List<HttpPostedFileBase> ApartmentImages { get; set; }
+        public string [] images { get; set; }
 
         [Display(Name = "Select Apartment comfort")]
         public List<string> SelectedApartmentComfortsId { get; set; }

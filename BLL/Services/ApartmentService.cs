@@ -33,7 +33,6 @@ namespace BLL.Services
             apartmentCreate.AvailableToGuest = availableToGuestService.GetAll().ToList();
             apartmentCreate.TypeOfHousing = typeOfHousingService.GetAll().ToList();
             apartmentCreate.ApartmentComforts = apartmentComfortService.GetAll().ToList();
-            apartmentCreate.ApartmentImages = new List<System.Web.HttpPostedFileBase>();
 
             return apartmentCreate;
         }

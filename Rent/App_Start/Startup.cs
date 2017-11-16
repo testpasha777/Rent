@@ -65,17 +65,17 @@ namespace Rent.App_Start
 
             //app.UseFacebookAuthentication(facebookOptions);
 
-            //var googleOptions = new GoogleOAuth2AuthenticationOptions
-            //{
-            //    ClientId = "267725092279-4978t08p88snbdh96jlsutb7jgop564g.apps.googleusercontent.com",
-            //    ClientSecret = "QqPMt4Z7ARZrXCJdFVod0g-e",
-            //};
+            var googleOptions = new GoogleOAuth2AuthenticationOptions
+            {
+                ClientId = "267725092279-4978t08p88snbdh96jlsutb7jgop564g.apps.googleusercontent.com",
+                ClientSecret = "QqPMt4Z7ARZrXCJdFVod0g-e",
+            };
 
-            //googleOptions.Scope.Add("profile");
-            //googleOptions.Scope.Add("email");
+            googleOptions.Scope.Add("profile");
+            googleOptions.Scope.Add("email");
             //googleOptions.Scope.Add("https://www.googleapis.com/auth/plus.login");
 
-            //app.UseGoogleAuthentication(googleOptions);
+            app.UseGoogleAuthentication(googleOptions);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

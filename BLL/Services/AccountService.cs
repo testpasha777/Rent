@@ -42,7 +42,7 @@ namespace BLL.Services
             unitOfWork = _unitOfWork;
         }
 
-        public StatusAccountViewModel CreateLogin(string email)
+        public StatusAccountViewModel CreateLogin(string email, string name, string surName)
         {
             var info = authenticationManager.GetExternalLoginInfo();
             var user = new AppUser
@@ -59,6 +59,13 @@ namespace BLL.Services
 
                 if(result.Succeeded)
                 {
+                    UserProfile userProfile = new UserProfile();
+                    userProfile.Name = name;
+                    userProfile.SurName = surName;
+                    userProfile.Id = user.Id;
+                    userProfileRepository.Create(userProfile);
+                    userProfileRepository.SaveChanges();
+                    userManager.AddToRole(user.Id, "User");
                     signInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
                     return StatusAccountViewModel.Success;
                 }

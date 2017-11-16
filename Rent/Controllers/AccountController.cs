@@ -158,48 +158,56 @@ namespace Rent.Controllers
             }
             else
             {
-                accountService.CreateLogin(loginInfo.Email);
+                var name = loginInfo.ExternalIdentity.Name.Substring(0, loginInfo.ExternalIdentity.Name.IndexOf(" "));
+                var surName = loginInfo.ExternalIdentity.Name.Substring(loginInfo.ExternalIdentity.Name.IndexOf(" "));
+
+                accountService.CreateLogin(loginInfo.Email, name, surName);
                 return RedirectToAction("Index", "Home");
             }
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if(User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Manage");
-            }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        //{
+        //    if(User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Manage");
+        //    }
 
-            if(ModelState.IsValid)
-            {
-                var info = accountService.GetExternalLoginInfo();
+        //    if(ModelState.IsValid)
+        //    {
+        //        var info = accountService.GetExternalLoginInfo();
 
-                if(info == null)
-                {
-                    return View("ExternalLoginFailure");
-                }
+        //        if(info == null)
+        //        {
+        //            return View("ExternalLoginFailure");
+        //        }
 
-                var result = accountService.CreateLogin(model.Email);
+        //        var result = accountService.CreateLogin(model.Email);
 
-                if(result == StatusAccountViewModel.Success)
-                {
-                    return RedirectToLocal(returnUrl);
-                }
-            }
+        //        if(result == StatusAccountViewModel.Success)
+        //        {
+        //            return RedirectToLocal(returnUrl);
+        //        }
+        //    }
 
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
+        //    ViewBag.ReturnUrl = returnUrl;
+        //    return View(model);
+        //}
 
         [ChildActionOnly]
         public ActionResult ShowUserAvatar()
         {
             var user = userRep.Get(User.Identity.GetUserId());
             UserAvatarViewModel avatar = new UserAvatarViewModel();
-            avatar.AvatarLink = user.AvatarLink;
+
+            if (user.AvatarLink != null)
+            {
+                avatar.AvatarLink = user.AvatarLink;
+            }
+
             return PartialView("_UserAvatar", avatar);
         }
 

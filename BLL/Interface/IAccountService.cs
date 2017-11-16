@@ -12,7 +12,7 @@ namespace BLL.Interface
     {
         Task<StatusAccountViewModel> Register(RegisterViewModel register);
         StatusAccountViewModel Login(LoginViewModel login);
-        StatusAccountViewModel CreateLogin(string email);
+        StatusAccountViewModel CreateLogin(string email, string name, string surName);
         IEnumerable<string> UserRoles(string email);
         IList<string> UserFactors();
         bool SendTwoFactorCode(string provider);

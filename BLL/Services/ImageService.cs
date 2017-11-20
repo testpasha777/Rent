@@ -15,12 +15,10 @@ namespace BLL.Services
     public class ImageService : IImageService
     {
         private DropboxClient dropBoxClient;
-        private string imgPath;
 
         public ImageService(DropboxClient _dropBoxClient)
         {
             dropBoxClient = _dropBoxClient;
-            imgPath = "";
         }
 
         public Bitmap CreateImage(HttpPostedFileBase image, int maxWidth, int maxHeight)
@@ -64,7 +62,6 @@ namespace BLL.Services
             using (var memory = new MemoryStream(ImageToByte(image)))
             {
                var upload = await dropBoxClient.Files.UploadAsync("/" + folder + "/" + fileName, body: memory);
-               imgPath = upload.PathLower;
                return upload.PathLower;
             }
         }
@@ -91,14 +88,15 @@ namespace BLL.Services
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
         }
 
-        public Image Base64ToImage(string base64String)
+        public byte[] Base64ToByte(string base64String)
         {
             byte[] imageBytes = Convert.FromBase64String(base64String);
 
             using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
             {
                 Image image = Image.FromStream(ms, true);
-                return image;
+                ImageConverter converter = new ImageConverter();
+                return (byte[])converter.ConvertTo(image, typeof(byte[]));
             }
         }
     }

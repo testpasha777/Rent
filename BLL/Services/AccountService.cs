@@ -88,7 +88,7 @@ namespace BLL.Services
         {
             var result = signInManager.PasswordSignIn(login.Email, login.Password,
                 login.IsRememberme, shouldLockout: false);
-
+            
             if(result == SignInStatus.Success)
             {
                 return StatusAccountViewModel.Success;

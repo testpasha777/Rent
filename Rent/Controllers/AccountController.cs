@@ -74,8 +74,8 @@ namespace Rent.Controllers
                         IsRememberme = false,
                     };
 
-                    accountService.Login(login);
-                    return RedirectToAction("Index", "Home");
+                    //accountService.Login(login);
+                    return RedirectToAction("Login", "Account");
                 }
                 else if (status == StatusAccountViewModel.Dublication)
                 {
@@ -84,7 +84,7 @@ namespace Rent.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "");
+                    ModelState.AddModelError("", "Error");
                     return View(register);
                 }
             }

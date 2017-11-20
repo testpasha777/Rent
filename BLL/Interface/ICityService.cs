@@ -13,6 +13,7 @@ namespace BLL.Interface
         void Delete(int id);
         bool Update(CityEditViewModel cityVM);
         CityViewModel GetById(int id);
+        CityViewModel GetCityInCountry(int countryId, string cityName);
         CityCreateViewModel GetCreateCity();
         CityEditViewModel GetEditCityById(int id);
         IEnumerable<CityViewModel> GetAll();

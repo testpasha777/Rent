@@ -32,6 +32,25 @@ namespace Rent.Controllers
         [HttpPost]
         public ActionResult Create(ApartmentCreateViewModel apartmentCreateVM)
         {
+            if(ModelState.IsValid)
+            {
+                if(apartmentCreateVM.images.Length == 1 && apartmentCreateVM.images[0] == null)
+                {
+                    ModelState.AddModelError("Images", "Add minimum 1 photo");
+                    return View(apartmentCreateVM);
+                }
+
+                bool addConfirm = apartmentService.Create(apartmentCreateVM);
+
+                if (!addConfirm)
+                {
+                    ModelState.AddModelError("Name", "Name already exists");
+                    return View(apartmentCreateVM);
+                }
+
+                return RedirectToAction("Index", "Home");
+            }
+
 
             return View(apartmentCreateVM);
         }

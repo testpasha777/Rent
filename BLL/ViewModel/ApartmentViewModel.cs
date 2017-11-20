@@ -20,8 +20,20 @@ namespace BLL.ViewModel
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Address")]
-        public string Address { get; set; }
+        [Display(Name = "Street")]
+        public string Street { get; set; }
+
+        [RegularExpression(@"^[a-zA-Z'a-zA-Z\,\s]+$", ErrorMessage = "Only English letter")]
+        [Required]
+        [Display(Name = "Location")]
+        public string CityAndCountry { get; set; }
+
+        [Required]
+        [Display(Name = "Street Number")]
+        public string StreetNumber { get; set; }
+
+        [Display(Name = "Flet number not require")]
+        public string FletNumber { get; set; }
 
         [Required]
         [Display(Name = "Price")]
@@ -29,12 +41,8 @@ namespace BLL.ViewModel
 
         [Required]
         [Display(Name = "Max number of guests")]
-        //[MinLength(1), MaxLength(16)]
+        [Range(1, 16)]
         public int MaxNumberOfGuests { get; set; }
-
-        //[Required]
-        //[Display(Name = "City")]
-        //public int CityId { get; set; }
 
         [Required]
         [Display(Name = "Available to guest")]
@@ -46,12 +54,13 @@ namespace BLL.ViewModel
         [Display(Name = "Type of housing")]
         public int TypeOfHousingId { get; set; }
 
+        [Required]
+        [Display(Name = "Add photo")]
         public string [] images { get; set; }
 
         [Display(Name = "Select Apartment comfort")]
         public List<string> SelectedApartmentComfortsId { get; set; }
 
-        public List<SelectItemViewModel> Cities { get; set; }
         public List<AvailableToGuestViewModel> AvailableToGuest { get; set; }
         public List<TypeOfHousingViewModel> TypeOfHousing { get; set; }
         public List<ApartmentComfortViewModel> ApartmentComforts { get; set; }

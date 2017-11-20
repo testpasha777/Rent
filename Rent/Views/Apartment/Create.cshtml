@@ -57,14 +57,39 @@
         </div>
 
         <div class="form-group">
-            <h2>Address</h2>
+            @Html.LabelFor(model => model.CityAndCountry, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.CityAndCountry, new { htmlAttributes = new {@id = "autocomplete", @class = "form-control"} })
+                @*<input type="text" name="location" id="autocomplete" />*@
+            @Html.ValidationMessageFor(model => model.CityAndCountry, "", new { @class = "text-danger" })
+            </div>
+            
+            @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                 @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" }})
+                 @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+            </div>
+            
+            @Html.LabelFor(model => model.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2"})
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.StreetNumber, new { htmlAttributes = new { @class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.StreetNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FletNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @Html.EditorFor(model => model.FletNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FletNumber, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control description-form"})
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger"})
+                @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control description-form" })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
         
@@ -98,12 +123,19 @@
             @Html.LabelFor(model => model.images, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.TextBoxFor(model => model.images, htmlAttributes: new { type = "file", @class = "form-control", @id = "addImg" })
+                @Html.ValidationMessageFor(model => model.images, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div id="gallery">
+            <div id="grid" class="grid">
+
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Add apartment" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -111,13 +143,30 @@
 
 @section styles {
     <link href="~/Content/bootstrap-chosen.css" rel="stylesheet" />
+    <link href="~/Content/Apartment.css" rel="stylesheet" />
 }
 
 @section scripts { 
     <script src="~/Scripts/chosen.jquery.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dzgWENOUqafU6Dwy_2elCY_UvrFT1Ig&sensor=false&libraries=places&language=en"></script>
     <script>
         $('.chosen-select').chosen();
         $('chosen-select-deselect').chosen({ allow_single_deselect: true });
+
+        $("#createApartmentForm").keypress(function (e) {
+            keycode = e.keyCode || e.charCode || e.which //for cross browser
+            if (keycode == 13)    //keyCode for enter key
+            {
+                return false;
+            }
+        });
+
+        var input = document.getElementById('autocomplete');
+        var autocomplete = new google.maps.places.Autocomplete(input, { types: ['(cities)'] });
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var place = autocomplete.getPlace();
+            console.log(place);
+        })
 
         function readURL(input) {
 
@@ -127,27 +176,54 @@
                 reader.onload = function (e) {
                     var img = document.createElement("img");
                     var input = document.createElement("textarea");
+                    var div = document.createElement('div');
+                    var button = document.createElement('div');
+                    var a = document.createElement('a');
 
-                    img.height = 200;
+                    button.style.textAlign = 'center';
+                    button.style.backgroundColor = 'black';
+
+                    a.innerText = "DELETE";
+                    a.addEventListener('click', function () {
+                        console.log('click');
+                        console.log(this.parentNode);
+                        console.log(this.parentNode.parentNode);
+                        this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
+
+                    });
+
+                    button.appendChild(a);
+
+                    div.classList.add('cell');
+
+                    img.classList.add('responsive-image');
                     img.src = e.target.result;
-                    form.appendChild(img);
+                    div.appendChild(img);
+                    div.appendChild(button);
 
                     input.name = "images";
                     input.style = "display: none";
                     input.textContent = e.target.result;
-                    
-                    form.appendChild(input);
+                    div.appendChild(input);
+                    grid.appendChild(div);
                 }
                 
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
-        var form = document.getElementById("createApartmentForm");
+        var form = document.getElementById("gallery");
+        var typeOfHousing = document.getElementById("TypeOfHousingId");
+        var fletNumberlabel = document.getElementById("fletNumberlabel");
+        var fletNumber = document.getElementById("fletNumber");
+        var grid = document.getElementById('grid');
 
-        document.getElementById("addImg").addEventListener("change", function () {
+        document.getElementById("addImg").addEventListener('change', function () {
             readURL(this);
+            this.value = '';
         });
+
+
     </script>
 }
 

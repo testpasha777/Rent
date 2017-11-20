@@ -224,6 +224,7 @@
     <Content Include="Areas\Admin\Scripts\custom.js" />
     <Content Include="Areas\Admin\Scripts\jquery-3.2.1.min.js" />
     <Content Include="Areas\Admin\Scripts\jquery.metisMenu.js" />
+    <Content Include="Content\Apartment.css" />
     <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

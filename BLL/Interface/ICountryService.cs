@@ -13,6 +13,7 @@ namespace BLL.Interface
         void Delete(int id);
         bool Update(CountryEditViewModel countryVM);
         CountryViewModel GetById(int id);
+        CountryViewModel GetByName(string name);
         CountryEditViewModel GetCountryEditById(int id);
         IEnumerable<CountryViewModel> GetAll();
     }

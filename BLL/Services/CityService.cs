@@ -68,6 +68,23 @@ namespace BLL.Services
             };
         }
 
+        public CityViewModel GetCityInCountry(int countryId, string cityName)
+        {
+            var city = cityRep.GetCityInCountry(countryId, cityName);
+
+            if(city == null)
+            {
+                return null;
+            }
+
+            return new CityViewModel
+            {
+                Id = city.Id,
+                Name = city.Name,
+                Country = city.Country.Name
+            };
+        }
+
         public CityCreateViewModel GetCreateCity()
         {
             CityCreateViewModel cityCreate = new CityCreateViewModel();

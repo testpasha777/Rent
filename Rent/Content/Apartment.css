@@ -1,0 +1,38 @@
+﻿#gallery {
+    margin: 20px;
+    max-width: 1200px;
+}
+
+input {
+    height: 30px;
+    padding-left: 10px;
+    border-radius: 4px;
+    border: 1px solid rgb(186, 178, 178);
+    box-shadow: 0px 0px 12px #EFEFEF;
+}
+
+.responsive-image {
+    width: 100%;
+}
+
+.cell img {
+    display: block;
+}
+
+@media screen and (min-width: 600px) {
+    .grid {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .cell {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .cell {
+        width: calc(100% / 3);
+    }
+}

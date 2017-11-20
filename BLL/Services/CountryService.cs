@@ -61,6 +61,22 @@ namespace BLL.Services
             };
         }
 
+        public CountryViewModel GetByName(string name)
+        {
+            var country = countryRep.GetByName(name);
+
+            if(country == null)
+            {
+                return null;
+            }
+
+            return new CountryViewModel
+            {
+                Id = country.Id,
+                Name = country.Name
+            };
+        }
+
         public CountryEditViewModel GetCountryEditById(int id)
         {
             var country = countryRep.GetById(id);

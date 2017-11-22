@@ -34,9 +34,9 @@ namespace Rent.Areas.Admin.Controllers
         {
             if(ModelState.IsValid)
             {
-                bool createRes = countryService.Create(countryVM);
+                var create = countryService.Create(countryVM);
 
-                if(!createRes)
+                if(create == null)
                 {
                     ModelState.AddModelError("Name", "Name already exists");
                     return View(countryVM);

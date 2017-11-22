@@ -21,13 +21,13 @@ namespace BLL.Services
             countryRep = _countryRep;
         }
 
-        public bool Create(CityCreateViewModel cityVM)
+        public CityViewModel Create(CityCreateViewModel cityVM)
         {
             var city = cityRep.GetCityInCountry(cityVM.CountryId, cityVM.Name);
 
             if(city != null)
             {
-                return false;
+                return null;
             }
 
             City add = new City();
@@ -35,7 +35,13 @@ namespace BLL.Services
             add.CountryId = cityVM.CountryId;
             cityRep.Create(add);
             cityRep.SaveChanges();
-            return true;
+
+            return new CityViewModel()
+            {
+                Id = add.Id,
+                Name = add.Name,
+                Country = add.Country.Name
+            };
         }
 
         public void Delete(int id)

@@ -1,8 +1,10 @@
 ﻿using BLL.Interface;
 using BLL.ViewModel;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -30,7 +32,7 @@ namespace Rent.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(ApartmentCreateViewModel apartmentCreateVM)
+        public async Task<ActionResult> Create(ApartmentCreateViewModel apartmentCreateVM)
         {
             if(ModelState.IsValid)
             {
@@ -40,7 +42,7 @@ namespace Rent.Controllers
                     return View(apartmentCreateVM);
                 }
 
-                bool addConfirm = apartmentService.Create(apartmentCreateVM);
+                bool addConfirm = await apartmentService.Create(apartmentCreateVM, User.Identity.GetUserId(), User.Identity.Name);
 
                 if (!addConfirm)
                 {

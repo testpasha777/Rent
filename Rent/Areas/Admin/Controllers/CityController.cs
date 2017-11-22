@@ -35,9 +35,9 @@ namespace Rent.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool addConfirm = cityService.Create(cityVM);
+                var create = cityService.Create(cityVM);
 
-                if (!addConfirm)
+                if (create == null)
                 {
                     ModelState.AddModelError("Name", "City already exists");
                     return View(cityVM);

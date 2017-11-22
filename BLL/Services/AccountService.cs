@@ -118,8 +118,9 @@ namespace BLL.Services
                 if (result.Succeeded)
                 {
                     UserProfile userProfile = new UserProfile();
-                    var img = imgService.CreateImage(register.avatar, 32, 32);
-                    userProfile.AvatarPath = await imgService.Upload(img, register.Email, register.avatar.FileName);
+                    var bitMapImg = imgService.HttpPostedFileBaseToBitmap(register.avatar);
+                    var newImg = imgService.CreateImage(bitMapImg, 32, 32);
+                    userProfile.AvatarPath = await imgService.Upload(newImg, register.Email, register.avatar.FileName);
                     userProfile.AvatarLink = await imgService.SharedFile(userProfile.AvatarPath);
                     userProfile.Name = register.Name;
                     userProfile.SurName = register.SurName;

@@ -9,6 +9,7 @@ using System.Web;
 using System.Drawing.Imaging;
 using System.IO;
 using Dropbox.Api;
+using System.ComponentModel;
 
 namespace BLL.Services
 {
@@ -21,13 +22,13 @@ namespace BLL.Services
             dropBoxClient = _dropBoxClient;
         }
 
-        public Bitmap CreateImage(HttpPostedFileBase image, int maxWidth, int maxHeight)
+        public Bitmap CreateImage(Bitmap image, int maxWidth, int maxHeight)
         {
-            if (image != null && image.ContentLength != 0)
+            if (image != null)
             {
                 try
                 {
-                    using (Bitmap originalPic = new Bitmap(image.InputStream, true))
+                    using (Bitmap originalPic = image)
                     {
                         int originalWidth = originalPic.Width;
                         int originalHeight = originalPic.Height;
@@ -77,6 +78,23 @@ namespace BLL.Services
             await dropBoxClient.Files.DeleteV2Async(path);
         }
 
+        public Bitmap Base64ToBitmap(string base64String)
+        {
+            byte[] img = Convert.FromBase64String(base64String);
+
+
+            using (var ms = new MemoryStream(img, 0, img.Length))
+            {
+                Bitmap image = new Bitmap(ms);
+                return image;
+            }
+        }
+
+        public Bitmap HttpPostedFileBaseToBitmap(HttpPostedFileBase image)
+        {
+            return new Bitmap(image.InputStream, true);
+        }
+
         private string ConvertUrlToDlUrl(string url)
         {
             return url.Replace("www.dropbox.com", "dl.dropboxusercontent.com").Replace("?dl=0", "");
@@ -86,18 +104,6 @@ namespace BLL.Services
         {
             ImageConverter converter = new ImageConverter();
             return (byte[])converter.ConvertTo(img, typeof(byte[]));
-        }
-
-        public byte[] Base64ToByte(string base64String)
-        {
-            byte[] imageBytes = Convert.FromBase64String(base64String);
-
-            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
-            {
-                Image image = Image.FromStream(ms, true);
-                ImageConverter converter = new ImageConverter();
-                return (byte[])converter.ConvertTo(image, typeof(byte[]));
-            }
         }
     }
 }

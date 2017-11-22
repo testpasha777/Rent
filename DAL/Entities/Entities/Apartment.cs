@@ -9,6 +9,11 @@ namespace DAL.Entities.Entities
 {
     public class Apartment
     {
+        public Apartment()
+        {
+            ApartmentComforts = new HashSet<ApartmentComfort>();
+        }
+
         public int Id { get; set; }
 
         [Required]

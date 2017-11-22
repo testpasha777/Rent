@@ -19,20 +19,24 @@ namespace BLL.Services
             countryRep = _countryRep;
         }
 
-        public bool Create(CountryCreateViewModel countryVM)
+        public CountryViewModel Create(CountryCreateViewModel countryVM)
         {
             var country = countryRep.GetByName(countryVM.Name);
 
             if(country != null)
             {
-                return false;
+                return null;
             }
 
             Country add = new Country();
             add.Name = countryVM.Name;
             countryRep.Create(add);
             countryRep.SaveChanges();
-            return true;
+
+            return new CountryViewModel() {
+                 Id = add.Id,
+                  Name = add.Name
+            };
         }
 
         public void Delete(int id)

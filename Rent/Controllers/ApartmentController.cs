@@ -32,7 +32,7 @@ namespace Rent.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(ApartmentCreateViewModel apartmentCreateVM)
+        public ActionResult Create(ApartmentCreateViewModel apartmentCreateVM)
         {
             if(ModelState.IsValid)
             {
@@ -42,7 +42,7 @@ namespace Rent.Controllers
                     return View(apartmentCreateVM);
                 }
 
-                bool addConfirm = await apartmentService.Create(apartmentCreateVM, User.Identity.GetUserId(), User.Identity.Name);
+                bool addConfirm = apartmentService.Create(apartmentCreateVM, User.Identity.GetUserId(), User.Identity.Name);
 
                 if (!addConfirm)
                 {

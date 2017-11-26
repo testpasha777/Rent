@@ -60,7 +60,6 @@
             @Html.LabelFor(model => model.CityAndCountry, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-2">
                 @Html.EditorFor(model => model.CityAndCountry, new { htmlAttributes = new {@id = "autocomplete", @class = "form-control"} })
-                @*<input type="text" name="location" id="autocomplete" />*@
             @Html.ValidationMessageFor(model => model.CityAndCountry, "", new { @class = "text-danger" })
             </div>
             
@@ -149,81 +148,6 @@
 @section scripts { 
     <script src="~/Scripts/chosen.jquery.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8dzgWENOUqafU6Dwy_2elCY_UvrFT1Ig&sensor=false&libraries=places&language=en"></script>
-    <script>
-        $('.chosen-select').chosen();
-        $('chosen-select-deselect').chosen({ allow_single_deselect: true });
-
-        $("#createApartmentForm").keypress(function (e) {
-            keycode = e.keyCode || e.charCode || e.which //for cross browser
-            if (keycode == 13)    //keyCode for enter key
-            {
-                return false;
-            }
-        });
-
-        var input = document.getElementById('autocomplete');
-        var autocomplete = new google.maps.places.Autocomplete(input, { types: ['(cities)'] });
-        google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            var place = autocomplete.getPlace();
-            console.log(place);
-        })
-
-        function readURL(input) {
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                
-                reader.onload = function (e) {
-                    var img = document.createElement("img");
-                    var input = document.createElement("textarea");
-                    var div = document.createElement('div');
-                    var button = document.createElement('div');
-                    var a = document.createElement('a');
-
-                    button.style.textAlign = 'center';
-                    button.style.backgroundColor = 'black';
-
-                    a.innerText = "DELETE";
-                    a.addEventListener('click', function () {
-                        console.log('click');
-                        console.log(this.parentNode);
-                        console.log(this.parentNode.parentNode);
-                        this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);
-
-                    });
-
-                    button.appendChild(a);
-
-                    div.classList.add('cell');
-
-                    img.classList.add('responsive-image');
-                    img.src = e.target.result;
-                    div.appendChild(img);
-                    div.appendChild(button);
-
-                    input.name = "images";
-                    input.style = "display: none";
-                    input.textContent = e.target.result;
-                    div.appendChild(input);
-                    grid.appendChild(div);
-                }
-                
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        var form = document.getElementById("gallery");
-        var typeOfHousing = document.getElementById("TypeOfHousingId");
-        var fletNumberlabel = document.getElementById("fletNumberlabel");
-        var fletNumber = document.getElementById("fletNumber");
-        var grid = document.getElementById('grid');
-
-        document.getElementById("addImg").addEventListener('change', function () {
-            readURL(this);
-            this.value = '';
-        });
-
-
-    </script>
+    <script src="~/Scripts/Apartment/apartmentCreate.js"></script>
 }
 

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using BLL.ViewModel;
 using DAL.Interface;
 using DAL.Entities.Entities;
+using System.Threading;
+using System.Web.Hosting;
 
 namespace BLL.Services
 {
@@ -43,7 +45,7 @@ namespace BLL.Services
             apartmentImageRep = _apartmentImageRep;
         }
 
-        public async Task<bool> Create(ApartmentCreateViewModel createVM, string userId, string userName)
+        public bool Create(ApartmentCreateViewModel createVM, string userId, string userName)
         {
             Apartment create = new Apartment();
             create.AvailableToGuestId = createVM.AvailableToGuestId;
@@ -59,12 +61,59 @@ namespace BLL.Services
                 create.Address += "/" + createVM.FletNumber;
             }
 
-            string cityName = createVM.CityAndCountry.Substring(0, createVM.CityAndCountry.IndexOf(','));
-            string countryName = createVM.CityAndCountry.Substring(createVM.CityAndCountry.LastIndexOf(' '));
+            FillApartmentCountryAndCity(create, createVM.CityAndCountry);
+            
+            if (createVM.SelectedApartmentComfortsId != null)
+            {
+                for (int i = 0; i < createVM.SelectedApartmentComfortsId.Count; i++)
+                {
+                    create.ApartmentComforts.Add(apartmentComfortRep.GetById(Int32.Parse(createVM.SelectedApartmentComfortsId[i])));
+                }
+            }
+
+            apartmentRep.Create(create);
+            apartmentRep.SaveChanges();
+
+            Task.Factory.StartNew(() => FillApartmentImages(createVM.images.Length, createVM.images, create.Id, userName), TaskCreationOptions.LongRunning);
+            Thread.Sleep(50000);
+            return true;
+        }
+
+        public ApartmentCreateViewModel GetCreateApartment()
+        {
+            ApartmentCreateViewModel apartmentCreate = new ApartmentCreateViewModel();
+            apartmentCreate.AvailableToGuest = availableToGuestService.GetAll().ToList();
+            apartmentCreate.TypeOfHousing = typeOfHousingService.GetAll().ToList();
+            apartmentCreate.ApartmentComforts = apartmentComfortService.GetAll().ToList();
+            return apartmentCreate;
+        }
+
+        private async void FillApartmentImages(int countImg, string[] images, int apartmentId, string folderName)
+        {
+            for (int i = 0; i < countImg; i++)
+            {
+                var bitMapImg = imageService.Base64ToBitmap(images[i].Substring(23));
+                var newImg = imageService.CreateImage(bitMapImg, 1600, 600);
+
+                string guid = Guid.NewGuid().ToString();
+                ApartmentImage createApartmentImage = new ApartmentImage();
+                createApartmentImage.ApartmentId = apartmentId;
+                createApartmentImage.PathPhoto = await imageService.Upload(newImg, folderName, guid + ".jpg");
+                createApartmentImage.LinkPhoto = await imageService.SharedFile(createApartmentImage.PathPhoto);
+                apartmentImageRep.Create(createApartmentImage);
+            }
+
+            apartmentImageRep.SaveChanges();
+        }
+
+        private void FillApartmentCountryAndCity(Apartment create, string cityAndCountryName)
+        {
+            string cityName = cityAndCountryName.Substring(0, cityAndCountryName.IndexOf(','));
+            string countryName = cityAndCountryName.Substring(cityAndCountryName.LastIndexOf(' '));
 
             var country = countryService.GetByName(countryName);
 
-            if(country == null)
+            if (country == null)
             {
                 CountryCreateViewModel createCountryVM = new CountryCreateViewModel();
                 createCountryVM.Name = countryName;
@@ -88,7 +137,7 @@ namespace BLL.Services
             {
                 var city = cityService.GetCityInCountry(country.Id, cityName);
 
-                if(city == null)
+                if (city == null)
                 {
                     CityCreateViewModel createCityVM = new CityCreateViewModel()
                     {
@@ -96,52 +145,12 @@ namespace BLL.Services
                         CountryId = country.Id
                     };
 
-                   city = cityService.Create(createCityVM);
-                   create.CityId = city.Id;
+                    city = cityService.Create(createCityVM);
+                    create.CityId = city.Id;
                 }
 
                 create.CityId = city.Id;
             }
-
-            if (createVM.SelectedApartmentComfortsId != null)
-            {
-                for (int i = 0; i < createVM.SelectedApartmentComfortsId.Count; i++)
-                {
-                    create.ApartmentComforts.Add(apartmentComfortRep.GetById(Int32.Parse(createVM.SelectedApartmentComfortsId[i])));
-                }
-            }
-
-            apartmentRep.Create(create);
-            apartmentRep.SaveChanges();
-
-            for (int i = 0; i < createVM.images.Length; i++)
-            {
-                var bitMapImg = imageService.Base64ToBitmap(createVM.images[i].Substring(23));
-                var newImg = imageService.CreateImage(bitMapImg, 1600, 600);
-
-                string guid = Guid.NewGuid().ToString();
-                ApartmentImage createApartmentImage = new ApartmentImage();
-                createApartmentImage.ApartmentId = create.Id;
-                createApartmentImage.PathPhoto = await imageService.Upload(newImg, userName, guid + ".jpg");
-                createApartmentImage.LinkPhoto = await imageService.SharedFile(createApartmentImage.PathPhoto);
-                apartmentImageRep.Create(createApartmentImage);
-            }
-
-            apartmentImageRep.SaveChanges();
-
-            return true;
-        }
-
-        public ApartmentCreateViewModel GetCreateApartment()
-        {
-            ApartmentCreateViewModel apartmentCreate = new ApartmentCreateViewModel();
-            apartmentCreate.AvailableToGuest = availableToGuestService.GetAll().ToList();
-            apartmentCreate.TypeOfHousing = typeOfHousingService.GetAll().ToList();
-            apartmentCreate.ApartmentComforts = apartmentComfortService.GetAll().ToList();
-
-
-
-            return apartmentCreate;
         }
     }
 }

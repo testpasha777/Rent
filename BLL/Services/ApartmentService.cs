@@ -45,7 +45,7 @@ namespace BLL.Services
             apartmentImageRep = _apartmentImageRep;
         }
 
-        public bool Create(ApartmentCreateViewModel createVM, string userId, string userName)
+        public bool Create(ApartmentCreateViewModel createVM, string userId, string userName, string folderName)
         {
             Apartment create = new Apartment();
             create.AvailableToGuestId = createVM.AvailableToGuestId;
@@ -74,8 +74,7 @@ namespace BLL.Services
             apartmentRep.Create(create);
             apartmentRep.SaveChanges();
 
-            Task.Factory.StartNew(() => FillApartmentImages(createVM.images.Length, createVM.images, create.Id, userName), TaskCreationOptions.LongRunning);
-            Thread.Sleep(50000);
+            FillApartmentImages(createVM.images.Length, createVM.images, create.Id, userName, folderName);
             return true;
         }
 
@@ -88,7 +87,7 @@ namespace BLL.Services
             return apartmentCreate;
         }
 
-        private async void FillApartmentImages(int countImg, string[] images, int apartmentId, string folderName)
+        private void FillApartmentImages(int countImg, string[] images, int apartmentId, string userName, string folderName)
         {
             for (int i = 0; i < countImg; i++)
             {
@@ -98,12 +97,27 @@ namespace BLL.Services
                 string guid = Guid.NewGuid().ToString();
                 ApartmentImage createApartmentImage = new ApartmentImage();
                 createApartmentImage.ApartmentId = apartmentId;
-                createApartmentImage.PathPhoto = await imageService.Upload(newImg, folderName, guid + ".jpg");
-                createApartmentImage.LinkPhoto = await imageService.SharedFile(createApartmentImage.PathPhoto);
+                imageService.SaveLocal(newImg, folderName, guid + ".jpg");
+                createApartmentImage.PathPhoto = "/Images/" + guid + ".jpg";
+                createApartmentImage.LinkPhoto = "/Images/" + guid + ".jpg";
+                createApartmentImage.FileName = guid + ".jpg";
+                createApartmentImage.FolderName = userName; 
+                createApartmentImage.Local = true;
                 apartmentImageRep.Create(createApartmentImage);
             }
 
             apartmentImageRep.SaveChanges();
+        }
+
+        public ApartmentViewModel Get(int id)
+        {
+            Apartment apartment = apartmentRep.GetById(id);
+
+            return new ApartmentViewModel
+            {
+                Id = apartment.Id,
+                Images = apartmentImageRep.GetImagesByApartmentId(id).Select(i => i.LinkPhoto).ToList()
+            };
         }
 
         private void FillApartmentCountryAndCity(Apartment create, string cityAndCountryName)
@@ -152,5 +166,6 @@ namespace BLL.Services
                 create.CityId = city.Id;
             }
         }
+
     }
 }

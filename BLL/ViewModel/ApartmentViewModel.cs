@@ -10,7 +10,9 @@ namespace BLL.ViewModel
 {
     public class ApartmentViewModel
     {
+        public int Id { get; set; }
 
+        public List<string> Images { get; set; }
     }
 
     public class ApartmentCreateViewModel

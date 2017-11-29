@@ -10,16 +10,21 @@ using System.Drawing.Imaging;
 using System.IO;
 using Dropbox.Api;
 using System.ComponentModel;
+using DAL.Interface;
+using DAL.Entities.Entities;
 
 namespace BLL.Services
 {
     public class ImageService : IImageService
     {
         private DropboxClient dropBoxClient;
+        private IApartmentImageRepository apartmentImageRep;
 
-        public ImageService(DropboxClient _dropBoxClient)
+        public ImageService(DropboxClient _dropBoxClient,
+            IApartmentImageRepository _apartmentImageRep)
         {
             dropBoxClient = _dropBoxClient;
+            apartmentImageRep = _apartmentImageRep;
         }
 
         public Bitmap CreateImage(Bitmap image, int maxWidth, int maxHeight)
@@ -58,12 +63,56 @@ namespace BLL.Services
             return null;
         }
 
+        public async void CheckImages()
+        {
+            var images = apartmentImageRep.GetAll().Where(i => i.Local == true).ToList();
+
+            if(images.Count == 0)
+            {
+                return;
+            }
+
+            for(int i = 0; i < images.Count(); i++)
+            {
+                string dir = AppDomain.CurrentDomain.BaseDirectory;
+                string localDeletepath = images[i].PathPhoto;
+                Bitmap img = new Bitmap(dir + images[i].PathPhoto);
+                images[i].ApartmentId = images[i].ApartmentId;
+                images[i].PathPhoto = await Upload(img, images[i].FolderName, images[i].FileName);
+                images[i].LinkPhoto = await SharedFile(images[i].PathPhoto);
+                img.Dispose();
+                DeleteLocal(dir + localDeletepath);
+                images[i].FileName = images[i].FileName;
+                images[i].FolderName = images[i].FolderName;
+                images[i].Local = false;
+            }
+
+            apartmentImageRep.SaveChanges();
+        }
+
         public async Task<string> Upload(Bitmap image, string folder, string fileName)
         {
             using (var memory = new MemoryStream(ImageToByte(image)))
             {
                var upload = await dropBoxClient.Files.UploadAsync("/" + folder + "/" + fileName, body: memory);
                return upload.PathLower;
+            }
+        }
+
+        public string SaveLocal(Bitmap image, string folder, string fileName)
+        {
+            string path = Path.Combine(folder, fileName);
+            image.Save(path, ImageFormat.Jpeg);
+            return path;
+        }
+
+        public void DeleteLocal(string path)
+        {
+            FileInfo file = new FileInfo(path);
+
+            if(file.Exists)
+            {
+                file.Delete();
             }
         }
 

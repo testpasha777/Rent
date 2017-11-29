@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using BLL.Infrastructure.Identity;
+using BLL.Interface;
 using BLL.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -9,6 +10,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -22,6 +24,7 @@ namespace Rent.App_Start
 {
     public class Startup
     {
+        private IImageService imageService = null;
 
         public void Configuration(IAppBuilder app)
         {
@@ -91,6 +94,33 @@ namespace Rent.App_Start
 
             app.UseAutofacMiddleware(container);
             app.UseAutofacMvc();
+
+            imageService = DependencyResolver.Current.GetService<IImageService>();
+
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += new DoWorkEventHandler(DoWork);
+            worker.WorkerReportsProgress = false;
+            worker.WorkerSupportsCancellation = true;
+            worker.RunWorkerCompleted +=
+                   new RunWorkerCompletedEventHandler(WorkerCompleted);
+
+            // Calling the DoWork Method Asynchronously
+            worker.RunWorkerAsync(); //we can also pass parameters to the async method....
+        }
+
+        private void DoWork(object sender, DoWorkEventArgs e)
+        {
+            imageService.CheckImages();
+        }
+
+        private void WorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            if (worker != null)
+            {
+                System.Threading.Thread.Sleep(300000);
+                worker.RunWorkerAsync();
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ namespace DAL.Interface
         void Delete(int id);
         ApartmentImage GetById(int id);
         IQueryable<ApartmentImage> GetAll();
+        IQueryable<ApartmentImage> GetImagesByApartmentId(int id);
         void SaveChanges();
     }
 }

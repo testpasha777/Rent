@@ -42,7 +42,7 @@ namespace Rent.Controllers
                     return View(apartmentCreateVM);
                 }
 
-                bool addConfirm = apartmentService.Create(apartmentCreateVM, User.Identity.GetUserId(), User.Identity.Name);
+                bool addConfirm = apartmentService.Create(apartmentCreateVM, User.Identity.GetUserId(), User.Identity.Name, Server.MapPath("~/Images"));
 
                 if (!addConfirm)
                 {
@@ -53,8 +53,13 @@ namespace Rent.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-
             return View(apartmentCreateVM);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var apartment = apartmentService.Get(id);
+            return View(apartment);
         }
     }
 }

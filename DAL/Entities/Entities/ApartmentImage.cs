@@ -19,6 +19,15 @@ namespace DAL.Entities.Entities
         [Required]
         public string LinkPhoto { get; set; }
 
+        [Required]
+        public bool Local { get; set; }
+
+        [Required]
+        public string FileName { get; set; }
+
+        [Required]
+        public string FolderName { get; set; }
+
         public virtual Apartment Apartment { get; set; }
     }
 }

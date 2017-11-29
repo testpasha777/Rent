@@ -140,6 +140,14 @@
     <Compile Include="Migrations\201711121326504_Added entiti TypeOFHousing.Designer.cs">
       <DependentUpon>201711121326504_Added entiti TypeOFHousing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711261916591_created new local field in ApartmentImage table.cs" />
+    <Compile Include="Migrations\201711261916591_created new local field in ApartmentImage table.Designer.cs">
+      <DependentUpon>201711261916591_created new local field in ApartmentImage table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711271038342_update table ApartmenImages .cs" />
+    <Compile Include="Migrations\201711271038342_update table ApartmenImages .Designer.cs">
+      <DependentUpon>201711271038342_update table ApartmenImages .cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApartmentComfortRepository.cs" />
@@ -186,6 +194,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711121326504_Added entiti TypeOFHousing.resx">
       <DependentUpon>201711121326504_Added entiti TypeOFHousing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711261916591_created new local field in ApartmentImage table.resx">
+      <DependentUpon>201711261916591_created new local field in ApartmentImage table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711271038342_update table ApartmenImages .resx">
+      <DependentUpon>201711271038342_update table ApartmenImages .cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,6 +10,7 @@ namespace BLL.Interface
     public interface IApartmentService
     {
         ApartmentCreateViewModel GetCreateApartment();
-        bool Create(ApartmentCreateViewModel createVM, string userId, string userName);
+        bool Create(ApartmentCreateViewModel createVM, string userId, string userName, string folderName);
+        ApartmentViewModel Get(int id);
     }
 }

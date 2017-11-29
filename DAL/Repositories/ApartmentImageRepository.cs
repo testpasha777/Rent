@@ -37,6 +37,11 @@ namespace DAL.Repositories
             return db.Set<ApartmentImage>();
         }
 
+        public IQueryable<ApartmentImage> GetImagesByApartmentId(int id)
+        {
+            return GetAll().Where(i => i.ApartmentId == id);
+        }
+
         public ApartmentImage GetById(int id)
         {
             return GetAll().SingleOrDefault(i => i.Id == id);
